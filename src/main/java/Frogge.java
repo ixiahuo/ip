@@ -1,11 +1,15 @@
 import java.util.Scanner;
 
 public class Frogge {
-    static final String HORIZONTAL_LINE = "_____________________________________________";
+    private static final String HORIZONTAL_LINE = "_____________________________________________";
+    private static String[] taskList = new String[100];
+    private static int numTasks = 0;
 
-    private static void echo(String userInput) {
+    private static void addList(String task) {
+        Frogge.taskList[numTasks] = task;
+        Frogge.numTasks++;
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(userInput);
+        System.out.println("added: " + task);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -23,11 +27,12 @@ public class Frogge {
         // wait for user input until bye
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
-            echo(userInput);
+            addList(userInput);
             userInput = sc.nextLine();
         }
 
         // exits with user input "bye"
         exit();
+        sc.close();
     }
 }
