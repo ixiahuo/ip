@@ -1,23 +1,18 @@
 public class Task {
     protected final String name;
-    protected final boolean isDone;
+    protected boolean isDone;
 
     Task(String name) {
         this.name = name;
         this.isDone = false;
     }
-
-    protected Task(String name, boolean isDone) {
-        this.name = name;
-        this.isDone = isDone;
-    }
     
-    Task mark() {
-        return new Task(this.name, true);
+    void mark() {
+        this.isDone = true;
     }
 
-    Task unmark() {
-        return new Task(this.name, false);
+    void unmark() {
+        this.isDone = false;
     }
 
     @Override
