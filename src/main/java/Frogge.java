@@ -1,15 +1,17 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
+
 
 public class Frogge {
     private static final String HORIZONTAL_LINE = "________________________________________________";
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<Task>(100);
     private static int numTasks = 0;
 
     // Add todos to the task list.
     private static void addTodo(String taskName) {
         Todo todo = new Todo(taskName);
-        Frogge.taskList[numTasks] = todo;
+        Frogge.taskList.add(todo);
         Frogge.numTasks++;
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* I've added todo task:\n    " + todo + 
@@ -20,7 +22,7 @@ public class Frogge {
     // Add deadlined tasks to the task list.
     private static void addDeadline(String taskName, String deadline) {
         Deadline task = new Deadline(taskName, deadline);
-        Frogge.taskList[numTasks] = task;
+        Frogge.taskList.add(task);
         Frogge.numTasks++;
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* I've added deadline task:\n    " + task + 
@@ -31,7 +33,7 @@ public class Frogge {
     // Add events to the task list.
     private static void addEvent(String taskName, String start, String end) {
         Event task = new Event(taskName, start, end);
-        Frogge.taskList[numTasks] = task;
+        Frogge.taskList.add(task);
         Frogge.numTasks++;
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* I've added event:\n    " + task + 
@@ -44,26 +46,26 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* Here are the tasks in your list:");
         for (int i = 0; i < Frogge.numTasks; i++) {
-            System.out.println(i + 1 + ". " + Frogge.taskList[i]);
+            System.out.println(i + 1 + ". " + Frogge.taskList.get(i));
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
     // Mark task as done using task number in list.
     private static void mark(int taskNum) {
-        Frogge.taskList[taskNum - 1].mark();
+        Frogge.taskList.get(taskNum - 1).mark();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* I've marked this as done!");
-        System.out.println(Frogge.taskList[taskNum - 1]);
+        System.out.println(Frogge.taskList.get(taskNum - 1));
         System.out.println(HORIZONTAL_LINE);
     }
 
     // Mark task as not done using task number in list.
     private static void unmark(int taskNum) {
-        Frogge.taskList[taskNum - 1].unmark();
+        Frogge.taskList.get(taskNum - 1).unmark();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("*ribbit* I've marked this as not done yet!");
-        System.out.println(Frogge.taskList[taskNum - 1]);
+        System.out.println(Frogge.taskList.get(taskNum - 1));
         System.out.println(HORIZONTAL_LINE);
     }
 
