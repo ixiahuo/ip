@@ -21,4 +21,12 @@ event hi /from
 event hi /from start
 event hi /from start /to
 blegh
+delete
+delete 4
+delete 3
+list
+mark
+mark 4
+unmark
+unmark 4
 bye

@@ -92,11 +92,37 @@ public class Frogge {
                     break;
                     
                 case "mark":
-                    Frogge.mark(Integer.parseInt(inputArgs[1]));
+                    try {
+                        if (inputArgs.length <= 1) {
+                            throw new FroggeException("*ribbit* what task do you want to mark as done?");
+                        }
+                        int taskNum = Integer.parseInt(inputArgs[1]);
+                        if (taskNum > Frogge.numTasks || taskNum <= 0) {
+                            throw new FroggeException("*ribbit* i can't find that task! >~<");
+                        }
+                        Frogge.mark(taskNum);
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                     break;
 
                 case "unmark":
-                    Frogge.unmark(Integer.parseInt(inputArgs[1]));
+                    try {
+                        if (inputArgs.length <= 1) {
+                            throw new FroggeException("*ribbit* what task do you want to mark as not done?");
+                        }
+                        int taskNum = Integer.parseInt(inputArgs[1]);
+                        if (taskNum > Frogge.numTasks || taskNum <= 0) {
+                            throw new FroggeException("*ribbit* i can't find that task! >~<");
+                        }
+                        Frogge.unmark(taskNum);
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                     break;
 
                 case "todo":
@@ -159,6 +185,29 @@ public class Frogge {
                         System.out.println(HORIZONTAL_LINE);
                     }
                     break;
+
+                case "delete":
+                    try {
+                        if (inputArgs.length <= 1) {
+                            throw new FroggeException("*ribbit* what task do you want to delete?");
+                        }
+                        int taskNum = Integer.parseInt(inputArgs[1]);
+                        if (taskNum > Frogge.numTasks || taskNum <= 0) {
+                            throw new FroggeException("*ribbit* i can't find that task! >~<");
+                        }
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("*ribbit* i've removed this task:\n    " + Frogge.taskList.get(taskNum - 1));
+                        Frogge.taskList.remove(taskNum - 1);
+                        Frogge.numTasks--;
+                        System.out.println("You have " + Frogge.numTasks + " tasks left");
+                        System.out.println(HORIZONTAL_LINE);
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
+                    break;
+
                 default:
                     try {
                         throw new FroggeException("*ribbit* i don't understand you >~<");
