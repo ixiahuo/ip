@@ -107,26 +107,64 @@ public class Frogge {
                     break;
 
                 case "todo":
-                    Frogge.addTodo(Arrays.stream(inputArgs, 1, inputArgs.length)
-                        .reduce((x,y) -> x + " " + y)
-                        .orElse(""));
+                    try {
+                        Frogge.addTodo(Arrays.stream(inputArgs, 1, inputArgs.length)
+                            .reduce((x,y) -> x + " " + y)
+                            .orElseThrow(() -> new FroggeException("*ribbit* todo needs a task description! >:(")));
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                     break;
 
                 case "deadline":
-                    String deadline = userInput.split("/by ")[1];
-                    Frogge.addDeadline(Arrays.stream(inputArgs, 1, inputArgs.length)
-                        .takeWhile(x -> !x.equals("/by"))
-                        .reduce((x,y) -> x + " " + y)
-                        .orElse(""), deadline);
+                    try {
+                        String desc = Arrays.stream(inputArgs, 1, inputArgs.length)
+                            .takeWhile(x -> !x.equals("/by"))
+                            .reduce((x,y) -> x + " " + y)
+                            .orElse("");
+                        if (desc.equals("")) {
+                            throw new FroggeException("*ribbit* deadline needs a task description! >:(");
+                        }
+                        if (userInput.split("/by ").length <= 1) {
+                            throw new FroggeException("*ribbit* deadline needs a deadline date! >:(");
+                        }
+                        String date = userInput.split("/by ")[1];
+                        Frogge.addDeadline(desc, date);
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                     break;
 
                 case "event":
-                    String start = userInput.split("/from ")[1].split(" /to ")[0];
-                    String end = userInput.split("/to ")[1];
-                    Frogge.addEvent(Arrays.stream(inputArgs, 1, inputArgs.length)
-                        .takeWhile(x -> !x.equals("/from"))
-                        .reduce((x,y) -> x + " " + y)
-                        .orElse(""), start, end);
+                    try {
+                        String desc = Arrays.stream(inputArgs, 1, inputArgs.length)
+                            .takeWhile(x -> !x.equals("/from") && !x.equals("/to"))
+                            .reduce((x,y) -> x + " " + y)
+                            .orElse("");
+                        if (desc.equals("")) {
+                            throw new FroggeException("*ribbit* event needs a description! >:(");
+                        }
+                        if (userInput.split("/from ").length <= 1) {
+                            throw new FroggeException("*ribbit* event needs a start time! >:(");
+                        }
+                        if (userInput.split("/to ").length <= 1) {
+                            throw new FroggeException("*ribbit* event needs an end time! >:(");
+                        }
+                        String start = userInput.split("/from ")[1].split(" /to ")[0];
+                        String end = userInput.split("/to ")[1];
+                        Frogge.addEvent(Arrays.stream(inputArgs, 1, inputArgs.length)
+                            .takeWhile(x -> !x.equals("/from"))
+                            .reduce((x,y) -> x + " " + y)
+                            .orElse(""), start, end);
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    }
                     break;
 
                 default:

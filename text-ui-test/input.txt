@@ -8,4 +8,16 @@ mark 3
 list
 unmark 3
 list
+todo
+list
+deadline
+deadline /by 
+deadline hi /by
+event
+event /from
+event /to
+event hi
+event hi /from
+event hi /from start
+event hi /from start /to
 bye
