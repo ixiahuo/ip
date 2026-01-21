@@ -13,6 +13,14 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    private static void list() {
+        System.out.println(HORIZONTAL_LINE);
+        for (int i = 0; i < Frogge.numTasks; i++) {
+            System.out.println(i + 1 + ". " + Frogge.taskList[i]);
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     private static void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Goodbye! *ribbit*");
@@ -27,7 +35,13 @@ public class Frogge {
         // wait for user input until bye
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
-            addList(userInput);
+            switch(userInput) {
+                case "list":
+                    Frogge.list();
+                    break;
+                default:
+                    Frogge.addList(userInput);
+            }
             userInput = sc.nextLine();
         }
 
