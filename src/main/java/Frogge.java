@@ -5,6 +5,7 @@ public class Frogge {
     private static Task[] taskList = new Task[100];
     private static int numTasks = 0;
 
+    // Add tasks to the task list.
     private static void addList(String task) {
         Frogge.taskList[numTasks] = new Task(task);
         Frogge.numTasks++;
@@ -13,6 +14,7 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Show the current task list.
     private static void list() {
         System.out.println(HORIZONTAL_LINE);
         for (int i = 0; i < Frogge.numTasks; i++) {
@@ -21,6 +23,7 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Mark task as done using task number in list.
     private static void mark(int taskNum) {
         Task toMark = Frogge.taskList[taskNum - 1];
         Frogge.taskList[taskNum - 1] = toMark.mark();
@@ -30,6 +33,7 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Mark task as not done using task number in list.
     private static void unmark(int taskNum) {
         Task toMark = Frogge.taskList[taskNum - 1];
         Frogge.taskList[taskNum - 1] = toMark.unmark();
@@ -39,6 +43,7 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    // Terminates Frogge.
     private static void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Goodbye! *ribbit*");
