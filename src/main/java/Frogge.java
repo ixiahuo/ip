@@ -6,15 +6,6 @@ public class Frogge {
     private static Task[] taskList = new Task[100];
     private static int numTasks = 0;
 
-    // Add tasks to the task list.
-    private static void addList(String task) {
-        Frogge.taskList[numTasks] = new Task(task);
-        Frogge.numTasks++;
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("added: " + task);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
     // Add todos to the task list.
     private static void addTodo(String taskName) {
         Todo todo = new Todo(taskName);
@@ -166,9 +157,14 @@ public class Frogge {
                         System.out.println(HORIZONTAL_LINE);
                     }
                     break;
-
                 default:
-                    Frogge.addList(userInput);
+                    try {
+                        throw new FroggeException("*ribbit* i don't understand you >~<");
+                    } catch (FroggeException e) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println(e.getMessage());
+                        System.out.println(HORIZONTAL_LINE);
+                    };
             }
             userInput = sc.nextLine();
         }
