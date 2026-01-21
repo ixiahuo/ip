@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 public class Frogge {
-    private static final String HORIZONTAL_LINE = "_____________________________________________";
-    private static String[] taskList = new String[100];
+    private static final String HORIZONTAL_LINE = "________________________________________________";
+    private static Task[] taskList = new Task[100];
     private static int numTasks = 0;
 
     private static void addList(String task) {
-        Frogge.taskList[numTasks] = task;
+        Frogge.taskList[numTasks] = new Task(task);
         Frogge.numTasks++;
         System.out.println(HORIZONTAL_LINE);
         System.out.println("added: " + task);
@@ -18,6 +18,24 @@ public class Frogge {
         for (int i = 0; i < Frogge.numTasks; i++) {
             System.out.println(i + 1 + ". " + Frogge.taskList[i]);
         }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void mark(int taskNum) {
+        Task toMark = Frogge.taskList[taskNum - 1];
+        Frogge.taskList[taskNum - 1] = toMark.mark();
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("*ribbit* I've marked this as done!");
+        System.out.println(Frogge.taskList[taskNum - 1]);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void unmark(int taskNum) {
+        Task toMark = Frogge.taskList[taskNum - 1];
+        Frogge.taskList[taskNum - 1] = toMark.unmark();
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("*ribbit* I've marked this as not done yet!");
+        System.out.println(Frogge.taskList[taskNum - 1]);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -35,9 +53,17 @@ public class Frogge {
         // wait for user input until bye
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
-            switch(userInput) {
+            String[] inputArgs = userInput.split(" ");
+            String command = inputArgs[0];
+            switch(command) {
                 case "list":
                     Frogge.list();
+                    break;
+                case "mark":
+                    Frogge.mark(Integer.parseInt(inputArgs[1]));
+                    break;
+                case "unmark":
+                    Frogge.unmark(Integer.parseInt(inputArgs[1]));
                     break;
                 default:
                     Frogge.addList(userInput);
