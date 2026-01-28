@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Frogge {
     private static final String HORIZONTAL_LINE = "________________________________________________";
@@ -81,13 +82,46 @@ public class Frogge {
         System.out.println(HORIZONTAL_LINE);
     }
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello I'm Frogge! *ribbit*\nWhat can I do for you?");
         System.out.println(HORIZONTAL_LINE);
 
+        // Read from save file.
+        try {
+            File saveDirectory = new File(System.getProperty("user.dir") + "../../../../data");
+            saveDirectory.mkdir();
+            File saveFile = new File(System.getProperty("user.dir") + "../../../../data/frogge.txt");
+            saveFile.createNewFile();
+            Scanner fileScanner = new Scanner(saveFile);
+            int i = 0;
+            while (fileScanner.hasNextLine()) {
+                String data = fileScanner.nextLine();
+                String[] savedFields = data.split(" \\| ");
+                if (savedFields[0].equals("T")) {
+                    Frogge.taskList.add(new Todo(savedFields[2]));
+                } else if (savedFields[0].equals("D")) {
+                    Frogge.taskList.add(new Deadline(savedFields[2], savedFields[3]));
+                } else if (savedFields[0].equals("E")) {
+                    Frogge.taskList.add(new Event(savedFields[2], savedFields[3], savedFields[4]));
+                }
+                if (savedFields[1].equals("1")) {
+                    Frogge.taskList.get(i).mark();
+                }
+                i++;
+                Frogge.numTasks++;
+            }
+            fileScanner.close();
+        } catch (Exception e) {
+            System.out.println("*ribbit* Sorry, I can't create/find your save file right now! >~<\n" +
+                    "It should be located in ../../../data/frogge.txt");
+            return;
+        }
+
+        // Start reading inputs
+        Scanner inputScanner = new Scanner(System.in);
+
         // wait for user input until bye
-        String userInput = sc.nextLine();
+        String userInput = inputScanner.nextLine();
         while (!userInput.equals("bye")) {
             String[] inputArgs = userInput.split(" ");
             String command = inputArgs[0];
@@ -203,11 +237,11 @@ public class Frogge {
                     System.out.println(HORIZONTAL_LINE);
                 };
             }
-            userInput = sc.nextLine();
+            userInput = inputScanner.nextLine();
         }
 
         // exits with user input "bye"
         exit();
-        sc.close();
+        inputScanner.close();
     }
 }
