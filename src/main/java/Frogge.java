@@ -1,21 +1,13 @@
 import java.util.Scanner;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Frogge {
     private static final String HORIZONTAL_LINE = "________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<Task>(100);
     private static int numTasks = 0;
-
-    static String getDescription(String userInput) throws FroggeException {
-        String desc = Arrays.stream(userInput.split(" "))
-                .skip(1)
-                .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! >:("));
-        
-        return desc;
-    }
 
     // Add todos to the task list.
     private static Todo addTodo(String userInput) throws FroggeException{
@@ -23,6 +15,14 @@ public class Frogge {
         Todo todo = new Todo(taskName);
         Frogge.taskList.add(todo);
         Frogge.numTasks++;
+        try {
+            FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
+                "../../../../data/frogge.txt");
+            saveFileWriter.write("T | " + "0 | " + taskName);
+            saveFileWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
+        }
         return todo;
     }
 
@@ -33,6 +33,14 @@ public class Frogge {
         Deadline task = new Deadline(desc, deadline);
         Frogge.taskList.add(task);
         Frogge.numTasks++;
+        try {
+            FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
+                "../../../../data/frogge.txt");
+            saveFileWriter.write("D | " + "0 | " + desc + " | " + deadline);
+            saveFileWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
+        }
         return task;
     }
 
@@ -44,6 +52,14 @@ public class Frogge {
         Event task = new Event(desc, start, end);
         Frogge.taskList.add(task);
         Frogge.numTasks++;
+        try {
+            FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
+                "../../../../data/frogge.txt");
+            saveFileWriter.write("T | " + "0 | " + desc + " | " + start + " | " + end);
+            saveFileWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
+        }        
         return task;
     }
 
