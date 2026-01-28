@@ -20,7 +20,7 @@ public class Deadline extends Task {
 
     static String getDeadline(String userInput) throws FroggeException {
         try {
-            return userInput.split("/by")[1];
+            return userInput.split("/by ")[1];
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* I need a deadline! " +
                     "Follow the following format for deadline:\n" + 
@@ -28,8 +28,12 @@ public class Deadline extends Task {
         }
     }
 
+    String getSaveString() {
+        return "D | " + (this.isDone ? "1" : "0") + " | " + this.name + " | " + this.deadline;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }
 }

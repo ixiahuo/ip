@@ -13,6 +13,10 @@ public class Todo extends Task {
                 "   todo [description]"));
     }
 
+    String getSaveString() {
+        return "T | " + (this.isDone ? "1" : "0") + " | " + this.name;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

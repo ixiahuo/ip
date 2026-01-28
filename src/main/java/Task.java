@@ -15,6 +15,10 @@ public class Task {
         this.isDone = false;
     }
 
+    String getSaveString() {
+        return "";
+    }
+
     @Override
     public String toString() {
         return (this.isDone ? "[X]" : "[ ]") + " " + this.name;

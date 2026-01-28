@@ -64,6 +64,10 @@ public class Event extends Task {
                     "   event [description] /from [start] /to [end]"));
     }
 
+    String getSaveString() {
+        return "E | " + (this.isDone ? "1" : "0") + " | " + this.name + " | " + this.start + " | " + this.end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() +

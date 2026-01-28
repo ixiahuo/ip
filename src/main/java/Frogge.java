@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -8,6 +10,8 @@ public class Frogge {
     private static final String HORIZONTAL_LINE = "________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<Task>(100);
     private static int numTasks = 0;
+    private static File saveDirectory = new File(System.getProperty("user.dir") + "../../../../data");
+    private static File saveFile = new File(Frogge.saveDirectory, "frogge.txt");
 
     // Add todos to the task list.
     private static Todo addTodo(String userInput) throws FroggeException{
@@ -17,8 +21,8 @@ public class Frogge {
         Frogge.numTasks++;
         try {
             FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
-                "../../../../data/frogge.txt");
-            saveFileWriter.write("T | " + "0 | " + taskName);
+                "../../../../data/frogge.txt", true);
+            saveFileWriter.write(todo.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
@@ -35,8 +39,8 @@ public class Frogge {
         Frogge.numTasks++;
         try {
             FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
-                "../../../../data/frogge.txt");
-            saveFileWriter.write("D | " + "0 | " + desc + " | " + deadline);
+                "../../../../data/frogge.txt", true);
+            saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
@@ -54,8 +58,8 @@ public class Frogge {
         Frogge.numTasks++;
         try {
             FileWriter saveFileWriter = new FileWriter(System.getProperty("user.dir") + 
-                "../../../../data/frogge.txt");
-            saveFileWriter.write("T | " + "0 | " + desc + " | " + start + " | " + end);
+                "../../../../data/frogge.txt", true);
+            saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
@@ -74,21 +78,59 @@ public class Frogge {
     }
 
     // Mark task as done using task number in list.
-    private static void mark(int taskNum) {
+    private static void mark(int taskNum) throws FroggeException {
+        String oldSaveString = Frogge.taskList.get(taskNum - 1).getSaveString();
+        System.out.println(oldSaveString);
         Frogge.taskList.get(taskNum - 1).mark();
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("*ribbit* I've marked this as done!");
-        System.out.println(Frogge.taskList.get(taskNum - 1));
-        System.out.println(HORIZONTAL_LINE);
+        String newSaveString = Frogge.taskList.get(taskNum - 1).getSaveString();
+        System.out.println(newSaveString);
+        // input the file content to the StringBuffer "input"
+        try {
+            BufferedReader file = new BufferedReader(new FileReader(Frogge.saveFile.toString()));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while ((line = file.readLine()) != null) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            file.close();
+            String inputStr = inputBuffer.toString();
+            inputStr = inputStr.replace(oldSaveString, newSaveString); 
+            FileWriter saveWriter = new FileWriter(Frogge.saveFile.toString());
+            saveWriter.write(inputStr);
+            saveWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+        }
     }
 
     // Mark task as not done using task number in list.
-    private static void unmark(int taskNum) {
+    private static void unmark(int taskNum) throws FroggeException {
+        String oldSaveString = Frogge.taskList.get(taskNum - 1).getSaveString();
+        System.out.println(oldSaveString);
         Frogge.taskList.get(taskNum - 1).unmark();
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("*ribbit* I've marked this as not done yet!");
-        System.out.println(Frogge.taskList.get(taskNum - 1));
-        System.out.println(HORIZONTAL_LINE);
+        String newSaveString = Frogge.taskList.get(taskNum - 1).getSaveString();
+        System.out.println(newSaveString);
+        // input the file content to the StringBuffer "input"
+        try {
+            BufferedReader file = new BufferedReader(new FileReader(Frogge.saveFile.toString()));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while ((line = file.readLine()) != null) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            file.close();
+            String inputStr = inputBuffer.toString();
+            inputStr = inputStr.replace(oldSaveString, newSaveString); 
+            FileWriter saveWriter = new FileWriter(Frogge.saveFile.toString());
+            saveWriter.write(inputStr);
+            saveWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+        }
     }
 
     // Terminates Frogge.
@@ -104,10 +146,8 @@ public class Frogge {
 
         // Read from save file.
         try {
-            File saveDirectory = new File(System.getProperty("user.dir") + "../../../../data");
-            saveDirectory.mkdir();
-            File saveFile = new File(System.getProperty("user.dir") + "../../../../data/frogge.txt");
-            saveFile.createNewFile();
+            Frogge.saveDirectory.mkdir();
+            Frogge.saveFile.createNewFile();
             Scanner fileScanner = new Scanner(saveFile);
             int i = 0;
             while (fileScanner.hasNextLine()) {
@@ -156,6 +196,10 @@ public class Frogge {
                         throw new FroggeException("*ribbit* i can't find that task! >~<");
                     }
                     Frogge.mark(taskNum);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("*ribbit* I've marked this as done!");
+                    System.out.println(Frogge.taskList.get(taskNum - 1));
+                    System.out.println(HORIZONTAL_LINE);
                 } catch (FroggeException e) {
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println(e.getMessage());
@@ -173,6 +217,10 @@ public class Frogge {
                         throw new FroggeException("*ribbit* i can't find that task! >~<");
                     }
                     Frogge.unmark(taskNum);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("*ribbit* I've marked this as not yet done!");
+                    System.out.println(Frogge.taskList.get(taskNum - 1));
+                    System.out.println(HORIZONTAL_LINE);
                 } catch (FroggeException e) {
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println(e.getMessage());
