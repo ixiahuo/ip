@@ -1,9 +1,12 @@
 import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
 
 public class Deadline extends Task {
-    private final String deadline;
+    private final LocalDate deadline;
 
-    Deadline(String name, String deadline) {
+    Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
     }
@@ -18,13 +21,15 @@ public class Deadline extends Task {
                     "   deadline [description] /by [deadline]"));
     }
 
-    static String getDeadline(String userInput) throws FroggeException {
+    static LocalDate getDeadline(String userInput) throws FroggeException {
         try {
-            return userInput.split("/by ")[1];
+            return LocalDate.parse(userInput.split("/by ")[1]);
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* I need a deadline! " +
                     "Follow the following format for deadline:\n" + 
-                    "   deadline [description] /by [deadline]");
+                    "   deadline [description] /by [yyyy-mm-dd]");
+        } catch (DateTimeException e) {
+            throw new FroggeException("*ribbit* Choose a valid date! >:(");
         }
     }
 
@@ -34,6 +39,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + 
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

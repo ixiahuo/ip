@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Frogge {
     private static final String HORIZONTAL_LINE = "________________________________________________";
@@ -33,7 +34,7 @@ public class Frogge {
     // Add deadlined tasks to the task list.
     private static Deadline addDeadline(String userInput) throws FroggeException{
         String desc = Deadline.getDescription(userInput);
-        String deadline = Deadline.getDeadline(userInput);
+        LocalDate deadline = Deadline.getDeadline(userInput);
         Deadline task = new Deadline(desc, deadline);
         Frogge.taskList.add(task);
         Frogge.numTasks++;
@@ -51,8 +52,8 @@ public class Frogge {
     // Add events to the task list.
     private static Event addEvent(String userInput) throws FroggeException {
         String desc = Event.getDescription(userInput);
-        String start = Event.getStart(userInput);
-        String end = Event.getEnd(userInput);
+        LocalDate start = Event.getStart(userInput);
+        LocalDate end = Event.getEnd(userInput);
         Event task = new Event(desc, start, end);
         Frogge.taskList.add(task);
         Frogge.numTasks++;
@@ -185,9 +186,9 @@ public class Frogge {
                 if (savedFields[0].equals("T")) {
                     Frogge.taskList.add(new Todo(savedFields[2]));
                 } else if (savedFields[0].equals("D")) {
-                    Frogge.taskList.add(new Deadline(savedFields[2], savedFields[3]));
+                    Frogge.taskList.add(new Deadline(savedFields[2], LocalDate.parse(savedFields[3])));
                 } else if (savedFields[0].equals("E")) {
-                    Frogge.taskList.add(new Event(savedFields[2], savedFields[3], savedFields[4]));
+                    Frogge.taskList.add(new Event(savedFields[2], LocalDate.parse(savedFields[3]), LocalDate.parse(savedFields[4])));
                 }
                 if (savedFields[1].equals("1")) {
                     Frogge.taskList.get(i).mark();
