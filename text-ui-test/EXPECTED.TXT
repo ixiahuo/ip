@@ -54,7 +54,8 @@ ________________________________________________
 3. [E][ ] book club (from: Friday 4pm to: Friday 6pm)
 ________________________________________________
 ________________________________________________
-*ribbit* todo needs a task description! >:(
+*ribbit* I need a description! Follow the following format for todo:
+   todo [description]
 ________________________________________________
 ________________________________________________
 *ribbit* Here are the tasks in your list:
@@ -63,34 +64,49 @@ ________________________________________________
 3. [E][ ] book club (from: Friday 4pm to: Friday 6pm)
 ________________________________________________
 ________________________________________________
-*ribbit* deadline needs a task description! >:(
+*ribbit* I need a description! Follow the following format for deadline:
+   deadline [description] /by [deadline]
 ________________________________________________
 ________________________________________________
-*ribbit* deadline needs a task description! >:(
+*ribbit* I need a description! Follow the following format for deadline:
+   deadline [description] /by [deadline]
 ________________________________________________
 ________________________________________________
-*ribbit* deadline needs a deadline date! >:(
+*ribbit* I need a deadline! Follow the following format for deadline:
+   deadline [description] /by [deadline]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs a description! >:(
+*ribbit* I need a description! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs a description! >:(
+*ribbit* I need a description! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs a description! >:(
+*ribbit* I need a description! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs a start time! >:(
+*ribbit* I need a start time! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs a start time! >:(
+*ribbit* I need a start time! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs an end time! >:(
+*ribbit* I need an end time! Follow the following format for event:
+   event [description] /from [start] /to [end]
 ________________________________________________
 ________________________________________________
-*ribbit* event needs an end time! >:(
+*ribbit* I need an end time! Follow the following format for event:
+   event [description] /from [start] /to [end]
+________________________________________________
+________________________________________________
+*ribbit* I've added event:
+    [E][ ] hi (from: a to: b)
+Now you have 4 tasks in the list
 ________________________________________________
 ________________________________________________
 *ribbit* i don't understand you >~<
@@ -104,12 +120,13 @@ ________________________________________________
 ________________________________________________
 *ribbit* i've removed this task:
     [E][ ] book club (from: Friday 4pm to: Friday 6pm)
-You have 2 tasks left
+You have 3 tasks left
 ________________________________________________
 ________________________________________________
 *ribbit* Here are the tasks in your list:
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday 2pm)
+3. [E][ ] hi (from: a to: b)
 ________________________________________________
 ________________________________________________
 *ribbit* what task do you want to mark as done?

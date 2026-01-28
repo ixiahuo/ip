@@ -20,13 +20,14 @@ event hi
 event hi /from
 event hi /from start
 event hi /from start /to
+event hi /to b /from a
 blegh
 delete
-delete 4
+delete 5
 delete 3
 list
 mark
-mark 4
+mark 5
 unmark
-unmark 4
+unmark 5
 bye
