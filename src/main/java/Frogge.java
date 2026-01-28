@@ -133,6 +133,35 @@ public class Frogge {
         }
     }
 
+    // Deletes task.
+    static void delete(int taskNum) throws FroggeException {
+        // input the file content to the StringBuffer "input"
+        try {
+            String toDelete = Frogge.taskList.get(taskNum - 1).getSaveString();
+            BufferedReader file = new BufferedReader(new FileReader(Frogge.saveFile.toString()));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+
+            while ((line = file.readLine()) != null && !line.equals(toDelete)) {
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+            }
+            file.close();
+            String inputStr = inputBuffer.toString();
+            FileWriter saveWriter = new FileWriter(Frogge.saveFile.toString());
+            saveWriter.write(inputStr);
+            saveWriter.close();
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("*ribbit* i've removed this task:\n    " + Frogge.taskList.get(taskNum - 1));
+            Frogge.taskList.remove(taskNum - 1);
+            Frogge.numTasks--;
+            System.out.println("You have " + Frogge.numTasks + " tasks left");
+            System.out.println(HORIZONTAL_LINE);
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+        }
+    }
+
     // Terminates Frogge.
     private static void exit() {
         System.out.println(HORIZONTAL_LINE);
@@ -279,12 +308,7 @@ public class Frogge {
                     if (taskNum > Frogge.numTasks || taskNum <= 0) {
                         throw new FroggeException("*ribbit* i can't find that task! >~<");
                     }
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("*ribbit* i've removed this task:\n    " + Frogge.taskList.get(taskNum - 1));
-                    Frogge.taskList.remove(taskNum - 1);
-                    Frogge.numTasks--;
-                    System.out.println("You have " + Frogge.numTasks + " tasks left");
-                    System.out.println(HORIZONTAL_LINE);
+                    Frogge.delete(taskNum);
                 } catch (FroggeException e) {
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println(e.getMessage());
