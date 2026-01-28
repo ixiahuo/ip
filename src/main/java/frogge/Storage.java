@@ -8,11 +8,17 @@ import java.util.Scanner;
 
 public class Storage {
     private TaskList tasklist;
-    private static File saveDirectory = new File(System.getProperty("user.dir") + "../../../../data");
+    private static File saveDirectory = new File(System.getProperty("user.dir") + "../../../../../data");
     private static File saveFile = new File(saveDirectory, "frogge.txt");
 
     Storage(TaskList tasklist) {
         this.tasklist = tasklist;
+        try {
+            saveDirectory.mkdir();
+            saveFile.createNewFile();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     void init() throws FroggeException {
