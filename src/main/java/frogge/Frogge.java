@@ -111,6 +111,16 @@ class Frogge {
                     ui.display("format:", "delete [task number]");
                 }
                 break;
+
+            case "find" :
+                try {
+                    TaskList foundTasks = this.tasklist.find(userInput);
+                    ui.display("found:", foundTasks);
+                } catch (FroggeException e) {
+                    ui.printError(e);
+                    ui.display("format:", "find [keyword]");
+                }
+                break;
             
             default:
                 ui.printError(new FroggeException("*ribbit* i don't understand what you're saying! >~<"));

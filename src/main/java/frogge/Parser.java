@@ -10,6 +10,13 @@ class Parser {
         return userInput.split(" ")[0];
     }
 
+    static String getKeyword(String userInput) throws FroggeException {
+        return Arrays.stream(userInput.split(" "))
+                .skip(1)
+                .reduce((x,y) -> x + " " + y)
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+    }
+
     static int getTaskNum(String userInput) throws FroggeException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]);
@@ -24,8 +31,7 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! Follow the following format for todo:\n" + 
-                "   todo [description]"));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
     }
 
     static String getDeadlineDescription(String userInput) throws FroggeException {
@@ -33,18 +39,14 @@ class Parser {
                 .skip(1)
                 .takeWhile(x -> !x.equals("/by"))
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! " + 
-                    "Follow the following format for deadline:\n" + 
-                    "   deadline [description] /by [deadline]"));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
     }
 
     static LocalDate getDeadline(String userInput) throws FroggeException {
         try {
             return LocalDate.parse(userInput.split("/by ")[1]);
         } catch (IndexOutOfBoundsException e) {
-            throw new FroggeException("*ribbit* I need a deadline! " +
-                    "Follow the following format for deadline:\n" + 
-                    "   deadline [description] /by [yyyy-mm-dd]");
+            throw new FroggeException("*ribbit* I need a deadline!");
         } catch (DateTimeException e) {
             throw new FroggeException("*ribbit* Choose a valid date! >:(");
         }
@@ -55,9 +57,7 @@ class Parser {
             .skip(1)
             .takeWhile(x -> !x.equals("/from") && !x.equals("/to"))
             .reduce((x,y) -> x + " " + y)
-            .orElseThrow(() -> new FroggeException("*ribbit* I need a description! " + 
-                    "Follow the following format for event:\n" + 
-                    "   event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]"));
+            .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
     }
 
     static LocalDate getStart(String userInput) throws FroggeException {
@@ -69,18 +69,14 @@ class Parser {
             }
         }
         if (fromIndex == args.length) {
-            throw new FroggeException("*ribbit* I need a start time! " + 
-                    "Follow the following format for event:\n" + 
-                    "   event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+            throw new FroggeException("*ribbit* I need a start time!");
         }
         try {
             return LocalDate.parse(Arrays.stream(args, fromIndex, args.length)
                     .skip(1)
                     .takeWhile(x -> !x.equals("/to"))
                     .reduce((x,y) -> x + " " + y)
-                    .orElseThrow(() -> new FroggeException("*ribbit* I need a start time! " + 
-                        "Follow the following format for event:\n" + 
-                        "   event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]")));
+                    .orElseThrow(() -> new FroggeException("*ribbit* I need a start time!")));
         } catch (DateTimeException e) {
             throw new FroggeException("*ribbit* Choose a valid date >:(");
         }
@@ -95,18 +91,14 @@ class Parser {
             }
         }
         if (toIndex == args.length) {
-            throw new FroggeException("*ribbit* I need an end time! " + 
-                    "Follow the following format for event:\n" + 
-                    "   event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+            throw new FroggeException("*ribbit* I need an end time!");
         }
         try {
             return LocalDate.parse(Arrays.stream(args, toIndex, args.length)
                 .skip(1)
                 .takeWhile(x -> !x.equals("/from"))
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need an end time! " + 
-                    "Follow the following format for event:\n" + 
-                    "   event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]")));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need an end time!")));
         } catch (DateTimeException e) {
             throw new FroggeException("*ribbit* Choose a valid date >:(");
         }
