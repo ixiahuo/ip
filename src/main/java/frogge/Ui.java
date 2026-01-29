@@ -1,3 +1,5 @@
+package frogge;
+
 public class Ui {
 
     void printStart() {

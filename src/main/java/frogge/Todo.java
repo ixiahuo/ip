@@ -1,3 +1,4 @@
+package frogge;
 
 public class Todo extends Task {
     Todo(String name) {

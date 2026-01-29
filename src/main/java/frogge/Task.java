@@ -1,3 +1,5 @@
+package frogge;
+
 public class Task {
     protected final String name;
     protected boolean isDone;

@@ -1,3 +1,5 @@
+package frogge;
+
 import java.util.Scanner;
 
 public class Frogge {
