@@ -8,11 +8,20 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Represents the storage media that the tasks are saved to and loaded from.
+ * Handles reading and writing from the save file.
+ */
 class Storage {
     private TaskList tasklist;
     private static File saveDirectory = new File(System.getProperty("user.dir") + "/data");
     private static File saveFile = new File(saveDirectory, "frogge.txt");
 
+    /**
+     * Constructor for Storage.
+     * Creates data/frogge.txt if file does not exist.
+     * @param tasklist TaskList to be initialised.
+     */
     Storage(TaskList tasklist) {
         this.tasklist = tasklist;
         try {
@@ -23,6 +32,12 @@ class Storage {
         }
     }
 
+    /**
+     * Initialises the TaskList.
+     * Parses each line in the save file and converts it into the corresponding 
+     * Task object before adding to the TaskList.
+     * @throws FroggeException If the save file is missing or corrupted.
+     */
     void init() throws FroggeException {
         try {
             Scanner fileScanner = new Scanner(saveFile);
@@ -50,6 +65,12 @@ class Storage {
         }
     }
 
+    /**
+     * Gets the specified line in the save file.
+     * @param lineNum Position number of the specified line, starting from 1.
+     * @return String object representing the line text.
+     * @throws Exception If there is an error reading the save file. 
+     */
     String getLine(int lineNum) throws Exception {
         Scanner fileScanner = new Scanner(saveFile);
         String line = "";
@@ -60,6 +81,13 @@ class Storage {
         return line;
     }
 
+    /**
+     * Writes a new Task to the end of the save file.
+     * Task is represented in the format of [type] | [isDone] | [name] | [additional fields]
+     * E.g. T | 0 | borrow book
+     * @param task Task to be converted to a save string and written.
+     * @throws FroggeException If the save file is missing.
+     */
     void append(Task task) throws FroggeException {
         try {
             FileWriter saveFileWriter = new FileWriter(saveFile.toString(), true);
@@ -70,6 +98,12 @@ class Storage {
         }
     }
 
+    /**
+     * Overwrites a specific line in the save file.
+     * @param oldString Line to be overwritten.
+     * @param newString Line to overwrite with.
+     * @throws FroggeException If save file is missing.
+     */
     void update(String oldString, String newString) throws FroggeException {
         try {
             BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
@@ -91,6 +125,11 @@ class Storage {
         }
     }
 
+    /**
+     * Deletes a specific line in the save file.
+     * @param toDelete String object representing the line to be deleted.
+     * @throws FroggeException If save file is missing.
+     */
     void delete(String toDelete) throws FroggeException {
         try {
             BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
