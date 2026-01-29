@@ -3,7 +3,7 @@ package frogge;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-public class TaskList {
+class TaskList {
     private ArrayList<Task> taskList;
     public int numTasks;
 

@@ -1,6 +1,6 @@
 package frogge;
 
-public class Task {
+class Task {
     protected final String name;
     protected boolean isDone;
 

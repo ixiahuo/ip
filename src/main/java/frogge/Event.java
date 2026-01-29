@@ -3,7 +3,7 @@ package frogge;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
+class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
 
@@ -15,15 +15,15 @@ public class Event extends Task {
 
     String getSaveString() {
         return "E | " + (this.isDone ? "1" : "0") +
-                 " | " + this.name +
-                 " | " + this.start +
-                  " | " + this.end;
+                " | " + this.name +
+                " | " + this.start +
+                " | " + this.end;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-         " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + 
-         " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + 
+                " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

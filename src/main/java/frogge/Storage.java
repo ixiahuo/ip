@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Storage {
+class Storage {
     private TaskList tasklist;
-    private static File saveDirectory = new File(System.getProperty("user.dir") + "../../../../../data");
+    private static File saveDirectory = new File(System.getProperty("user.dir") + "/data");
     private static File saveFile = new File(saveDirectory, "frogge.txt");
 
     Storage(TaskList tasklist) {

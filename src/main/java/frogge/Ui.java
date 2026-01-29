@@ -1,7 +1,6 @@
 package frogge;
 
-public class Ui {
-
+class Ui {
     void printStart() {
         System.out.println("i'm frogge! *ribbit*\nwhat can i do for you?");
     }

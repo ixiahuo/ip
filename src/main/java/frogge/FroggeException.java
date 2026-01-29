@@ -1,6 +1,6 @@
 package frogge;
 
-public class FroggeException extends Exception {
+class FroggeException extends Exception {
     FroggeException(String m) {
         super(m);
     }

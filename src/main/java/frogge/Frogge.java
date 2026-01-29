@@ -2,7 +2,7 @@ package frogge;
 
 import java.util.Scanner;
 
-public class Frogge {
+class Frogge {
     private Ui ui;
     private Storage storage;
     private TaskList tasklist;

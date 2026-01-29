@@ -3,8 +3,8 @@ package frogge;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
-    private final LocalDate deadline;
+class Deadline extends Task {
+    private LocalDate deadline;
 
     Deadline(String name, LocalDate deadline) {
         super(name);
@@ -12,7 +12,9 @@ public class Deadline extends Task {
     }
 
     String getSaveString() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.name + " | " + this.deadline;
+        return "D | " + (this.isDone ? "1" : "0") +
+                " | " + this.name +
+                " | " + this.deadline;
     }
 
     @Override

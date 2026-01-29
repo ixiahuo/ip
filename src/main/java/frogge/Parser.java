@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-public class Parser {
+class Parser {
 
     static String getCommand(String userInput) {
         return userInput.split(" ")[0];
