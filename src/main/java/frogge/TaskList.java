@@ -3,25 +3,45 @@ package frogge;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Encapsulates the ArrayList containing Task objects.
+ */
 class TaskList {
     private ArrayList<Task> taskList;
     public int numTasks;
 
+    /**
+     * Constructor for TaskList.
+     */
     TaskList() {
         this.taskList = new ArrayList<Task>(100);
         this.numTasks = 0;
     }
 
+    /**
+     * Returns the task at the specified position.
+     * @param taskNum The position of the task to get, starting from 1.
+     * @return Task at the specified position.
+     */
     Task get(int taskNum) {
         return this.taskList.get(taskNum - 1);
     }
 
+    /**
+     * Appends the task.
+     * @param task Task to be added.
+     */
     void add(Task task) {
         this.taskList.add(task);
         this.numTasks++;
     }
 
-    // Add todos to the task list.
+    /**
+     * Adds a Todo object to the end of the list, corresponding to the given input.
+     * @param userInput Input to be parsed.
+     * @return Todo object corresponding to userInput that was added.
+     * @throws FroggeException If no description is provided.
+     */
     Todo addTodo(String userInput) throws FroggeException{
         String taskName = Parser.getTodoDescription(userInput);
         Todo todo = new Todo(taskName);
@@ -30,7 +50,12 @@ class TaskList {
         return todo;
     }
 
-    // Add deadlined tasks to the task list.
+    /**
+     * Adds a Deadline object to the end of the list, corresponding to the given input.
+     * @param userInput Input to be parsed.
+     * @return Deadline object corresponding to userInput that was added.
+     * @throws FroggeException If no description or deadline is provided.
+     */
     Deadline addDeadline(String userInput) throws FroggeException {
         String desc = Parser.getDeadlineDescription(userInput);
         LocalDate deadline = Parser.getDeadline(userInput);
@@ -40,7 +65,12 @@ class TaskList {
         return task;
     }
 
-    // Add events to the task list.
+    /**
+     * Adds an Event object to the end of the list, corresponding to the given input.
+     * @param userInput Input to be parsed.
+     * @return Event object corresponding to userInput that was added.
+     * @throws FroggeException If no description, start or end is provided.
+     */
     Event addEvent(String userInput) throws FroggeException {
         String desc = Parser.getEventDescription(userInput);
         LocalDate start = Parser.getStart(userInput);
@@ -51,12 +81,22 @@ class TaskList {
         return task;
     }
 
+    /**
+     * Displays the full list.
+     * Called using the "list" command.
+     */
     void list() {
         for (int i = 0; i < this.numTasks; i++) {
             System.out.println(i + 1 + ". " + this.taskList.get(i));
         }
     }
 
+    /**
+     * Marks the task at the specified position as done.
+     * @param taskNum The position of the task to mark, starting from 1.
+     * @return Updated task.
+     * @throws FroggeException If no taskNum is specified or if the specified position is invalid.
+     */
     Task mark(int taskNum) throws FroggeException {
         try {
             this.taskList.get(taskNum - 1).mark();
@@ -66,6 +106,12 @@ class TaskList {
         }
     }
 
+    /**
+     * Unmarks the task at the specified position as not done.
+     * @param taskNum The position of the task to unmark, starting from 1.
+     * @return Updated task.
+     * @throws FroggeException If no taskNum is specified or if the specified position is invalid.
+     */
     Task unmark(int taskNum) throws FroggeException {
         try {
             this.taskList.get(taskNum - 1).unmark();
@@ -75,6 +121,12 @@ class TaskList {
         }
     }
 
+    /**
+     * Deletes the task at the specified position.
+     * @param taskNum The position of the task to delete, starting from 1.
+     * @return Deleted task.
+     * @throws FroggeException If no taskNum is specified or if the specified position is invalid.
+     */
     Task delete(int taskNum) throws FroggeException {
         try {
             this.numTasks--;
