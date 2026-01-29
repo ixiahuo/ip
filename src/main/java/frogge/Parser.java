@@ -13,8 +13,10 @@ class Parser {
     static int getTaskNum(String userInput) throws FroggeException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]);
-        } catch (Exception e) {
-            throw new FroggeException("*ribbit* i can't find that task!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new FroggeException("*ribbit* what's the task number!");
+        } catch (NumberFormatException e) {
+            throw new FroggeException("*ribbit* that task doesn't exist!");
         }
     }
 

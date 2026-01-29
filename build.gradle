@@ -27,6 +27,7 @@ test {
     }
 }
 
+
 application {
     mainClass.set("frogge.Frogge")
 }

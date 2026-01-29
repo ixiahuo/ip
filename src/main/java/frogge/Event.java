@@ -21,6 +21,18 @@ class Event extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Event task) {
+            return this.name.equals(task.name) && this.isDone == task.isDone &&
+                    this.start.equals(task.start) && this.end.equals(task.end);
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() +
                 " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + 

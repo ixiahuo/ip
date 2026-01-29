@@ -35,6 +35,7 @@ class Frogge {
                     this.ui.display("added:", todo);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    this.ui.display("format:", "todo [description]");
                 }
                 break;
             
@@ -45,6 +46,7 @@ class Frogge {
                     this.ui.display("added:", deadline);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
                 }
                 break;
 
@@ -55,6 +57,8 @@ class Frogge {
                     this.ui.display("added:", event);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    this.ui.display("format:",
+                            "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
                 }
                 break;
 
@@ -76,6 +80,7 @@ class Frogge {
                     ui.display("marked", task);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    ui.display("format:", "mark [task number]");
                 }
                 break;
 
@@ -92,6 +97,7 @@ class Frogge {
                     ui.display("unmarked:", task);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    ui.display("format:", "unmark [task number]");
                 }
                 break;
 
@@ -102,6 +108,7 @@ class Frogge {
                     ui.display("deleted:", deleted);
                 } catch (FroggeException e) {
                     ui.printError(e);
+                    ui.display("format:", "delete [task number]");
                 }
                 break;
             

@@ -8,6 +8,11 @@ class Task {
         this.name = name;
         this.isDone = false;
     }
+
+    Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
     
     void mark() {
         this.isDone = true;
@@ -19,6 +24,17 @@ class Task {
 
     String getSaveString() {
         return "";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Task task) {
+            return this.name.equals(task.name) && this.isDone == task.isDone;
+        }
+        return false;
     }
 
     @Override

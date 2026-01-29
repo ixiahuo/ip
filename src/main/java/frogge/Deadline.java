@@ -18,6 +18,18 @@ class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Deadline task) {
+            return this.name.equals(task.name) && this.isDone == task.isDone &&
+                    this.deadline.equals(task.deadline);
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + 
                 this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
