@@ -50,10 +50,20 @@ class Storage {
         }
     }
 
+    String getLine(int lineNum) throws Exception {
+        Scanner fileScanner = new Scanner(saveFile);
+        String line = "";
+        for (int i = 0; i < lineNum; i++) {
+            line = fileScanner.nextLine();
+        }
+        fileScanner.close();
+        return line;
+    }
+
     void append(Task task) throws FroggeException {
         try {
             FileWriter saveFileWriter = new FileWriter(saveFile.toString(), true);
-            saveFileWriter.write("\n" + task.getSaveString());
+            saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't write to your save file right now >~<");

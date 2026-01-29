@@ -13,11 +13,17 @@ class Event extends Task {
         this.end = end;
     }
 
+    Event(String name, boolean isDone, LocalDate start, LocalDate end) {
+        super(name, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     String getSaveString() {
         return "E | " + (this.isDone ? "1" : "0") +
                 " | " + this.name +
                 " | " + this.start +
-                " | " + this.end;
+                " | " + this.end + "\n";
     }
 
     @Override

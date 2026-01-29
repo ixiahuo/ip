@@ -23,7 +23,7 @@ class Task {
     }
 
     String getSaveString() {
-        return "";
+        return "\n";
     }
 
     @Override

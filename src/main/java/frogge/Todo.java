@@ -10,7 +10,7 @@ class Todo extends Task {
     }
 
     String getSaveString() {
-        return "T | " + (this.isDone ? "1" : "0") + " | " + this.name;
+        return "T | " + (this.isDone ? "1" : "0") + " | " + this.name + "\n";
     }
 
     @Override

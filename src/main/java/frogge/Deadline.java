@@ -11,10 +11,15 @@ class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    Deadline(String name, boolean isDone, LocalDate deadline) {
+        super(name, isDone);
+        this.deadline = deadline;
+    }
+
     String getSaveString() {
         return "D | " + (this.isDone ? "1" : "0") +
                 " | " + this.name +
-                " | " + this.deadline;
+                " | " + this.deadline + "\n";
     }
 
     @Override
