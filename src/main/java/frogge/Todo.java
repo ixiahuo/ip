@@ -1,16 +1,29 @@
 package frogge;
 
+/**
+ * Subclass of Task.
+ */
 class Todo extends Task {
-    Todo(String name) {
-        super(name);
+    /**
+     * Constructor for Todo.
+     * @param description Description of task.
+     */
+    Todo(String description) {
+        super(description);
     }
 
-    Todo(String name, boolean isDone) {
-        super(name, isDone);
+    /**
+     * Alternative constructor for Todo.
+     * @param description Description of task.
+     * @param isDone Boolean representing whether the task is done.
+     */
+    Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
+    @Override
     String getSaveString() {
-        return "T | " + (this.isDone ? "1" : "0") + " | " + this.name + "\n";
+        return "T | " + (this.isDone ? "1" : "0") + " | " + this.description + "\n";
     }
 
     @Override
@@ -19,7 +32,7 @@ class Todo extends Task {
             return true;
         }
         if (obj instanceof Todo task) {
-            return this.name.equals(task.name) && this.isDone == task.isDone;
+            return this.description.equals(task.description) && this.isDone == task.isDone;
         }
         return false;
     }

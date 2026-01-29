@@ -3,22 +3,37 @@ package frogge;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 class Deadline extends Task {
     private LocalDate deadline;
 
-    Deadline(String name, LocalDate deadline) {
-        super(name);
+    /**
+     * Constructor for Deadline.
+     * @param description Description of task.
+     * @param deadline Date that the task must be done by.
+     */
+    Deadline(String description, LocalDate deadline) {
+        super(description);
         this.deadline = deadline;
     }
 
-    Deadline(String name, boolean isDone, LocalDate deadline) {
-        super(name, isDone);
+    /**
+     * Alternative constructor for Deadline.
+     * @param description Description of task.
+     * @param isDone Boolean representing whether the task is done.
+     * @param deadline Date that the task must be done by.
+     */
+    Deadline(String description, boolean isDone, LocalDate deadline) {
+        super(description, isDone);
         this.deadline = deadline;
     }
 
+    @Override
     String getSaveString() {
         return "D | " + (this.isDone ? "1" : "0") +
-                " | " + this.name +
+                " | " + this.description +
                 " | " + this.deadline + "\n";
     }
 
@@ -28,7 +43,7 @@ class Deadline extends Task {
             return true;
         }
         if (obj instanceof Deadline task) {
-            return this.name.equals(task.name) && this.isDone == task.isDone &&
+            return this.description.equals(task.description) && this.isDone == task.isDone &&
                     this.deadline.equals(task.deadline);
         }
         return false;
