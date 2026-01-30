@@ -18,6 +18,8 @@ class Frogge {
         this.ui = new Ui();
         this.tasklist = new TaskList();
         this.storage = new Storage(tasklist);
+
+        // Initialises the task list.
         try {
             storage.init();
         } catch (FroggeException e) {
@@ -33,13 +35,15 @@ class Frogge {
     void run() {
         ui.printStart();
         ui.showLine();
+
         Scanner inputScanner = new Scanner(System.in);
         String userInput = inputScanner.nextLine();
         String command = Parser.getCommand(userInput);
+
         while (!command.equals("bye")) {
             this.ui.showLine();
             switch (command) {
-            case "todo" :
+            case "todo":
                 try {
                     Todo todo = this.tasklist.addTodo(userInput);
                     this.storage.append(todo);
@@ -49,8 +53,7 @@ class Frogge {
                     this.ui.display("format:", "todo [description]");
                 }
                 break;
-            
-            case "deadline" :
+            case "deadline":
                 try {
                     Deadline deadline = this.tasklist.addDeadline(userInput);
                     this.storage.append(deadline);
@@ -60,8 +63,7 @@ class Frogge {
                     this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
                 }
                 break;
-
-            case "event" :
+            case "event":
                 try {
                     Event event = this.tasklist.addEvent(userInput);
                     this.storage.append(event);
@@ -72,47 +74,50 @@ class Frogge {
                             "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
                 }
                 break;
-
-            case "list" :
+            case "list":
                 this.ui.display(this.tasklist.numTasks + " items in your list:");
                 this.tasklist.list();
                 break;
-
-            case "mark" :
+            case "mark":
                 try {
                     String oldSaveString = this.tasklist
                             .get(Parser.getTaskNum(userInput))
                             .getSaveString();
+
                     Task task = this.tasklist.mark(Parser.getTaskNum(userInput));
+
                     String newSaveString = this.tasklist
                             .get(Parser.getTaskNum(userInput))
                             .getSaveString();
                     this.storage.update(oldSaveString, newSaveString);
+
                     ui.display("marked", task);
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "mark [task number]");
                 }
                 break;
-
-            case "unmark" :
+            case "unmark":
                 try {
                     String oldSaveString = this.tasklist
                             .get(Parser.getTaskNum(userInput))
                             .getSaveString();
+
                     Task task = this.tasklist.unmark(Parser.getTaskNum(userInput));
+
                     String newSaveString = this.tasklist
                             .get(Parser.getTaskNum(userInput))
                             .getSaveString();
+
                     this.storage.update(oldSaveString, newSaveString);
+
                     ui.display("unmarked:", task);
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "unmark [task number]");
                 }
                 break;
-
-            case "delete" :
+            case "delete":
                 try {
                     Task deleted = this.tasklist.delete(Parser.getTaskNum(userInput));
                     this.storage.delete(deleted.getSaveString());
@@ -122,7 +127,6 @@ class Frogge {
                     ui.display("format:", "delete [task number]");
                 }
                 break;
-            
             default:
                 ui.printError(new FroggeException("*ribbit* i don't understand what you're saying! >~<"));
             }
