@@ -28,7 +28,7 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a keyword!"));
     }
 
     static int getTaskNum(String userInput) throws FroggeException {
