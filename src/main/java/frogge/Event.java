@@ -37,10 +37,11 @@ class Event extends Task {
 
     @Override
     String getSaveString() {
-        return "E | " + (this.isDone ? "1" : "0") +
-                " | " + this.description +
-                " | " + this.start +
-                " | " + this.end + "\n";
+        return "E | " + (this.isDone ? "1" : "0") 
+                + " | " + this.description 
+                + " | " + this.start 
+                + " | " + this.end 
+                + "\n";
     }
 
     @Override
@@ -49,16 +50,21 @@ class Event extends Task {
             return true;
         }
         if (obj instanceof Event task) {
-            return this.description.equals(task.description) && this.isDone == task.isDone &&
-                    this.start.equals(task.start) && this.end.equals(task.end);
+            return this.description.equals(task.description) 
+                    && this.isDone == task.isDone 
+                    && this.start.equals(task.start) 
+                    && this.end.equals(task.end);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + 
-                " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E]" + super.toString() 
+                + " (from: " 
+                + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) 
+                + " to: " 
+                + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) 
+                + ")";
     }
 }

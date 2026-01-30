@@ -49,9 +49,12 @@ class Storage {
                     if (savedFields[0].equals("T")) {
                         this.tasklist.add(new Todo(savedFields[2]));
                     } else if (savedFields[0].equals("D")) {
-                        this.tasklist.add(new Deadline(savedFields[2], LocalDate.parse(savedFields[3])));
+                        this.tasklist.add(new Deadline(savedFields[2],
+                                LocalDate.parse(savedFields[3])));
                     } else if (savedFields[0].equals("E")) {
-                        this.tasklist.add(new Event(savedFields[2], LocalDate.parse(savedFields[3]), LocalDate.parse(savedFields[4])));
+                        this.tasklist.add(new Event(savedFields[2], 
+                                LocalDate.parse(savedFields[3]), 
+                                LocalDate.parse(savedFields[4])));
                     }
                     numTasks++;
                     if (savedFields[1].equals("1")) {

@@ -1,10 +1,9 @@
 package frogge;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 class StorageTest {
-
     private TaskList taskList;
     private Storage storage;
     private File saveFile;
@@ -100,7 +98,7 @@ class StorageTest {
 
     @Test
     void append_ioFailure_throwsException() {
-        // Hard to simulate IO failure reliably;
+        // Since it is hard to simulate IO failure reliably,
         // this test exists mainly for completeness
 
         Task task = new Todo("test");
@@ -108,7 +106,7 @@ class StorageTest {
         FroggeException exception = assertThrows(
                 FroggeException.class,
                 () -> {
-                    // force failure if desired
+                    // force failure
                     throw new FroggeException("*ribbit* I can't load your save file right now >~<");
                 }
         );

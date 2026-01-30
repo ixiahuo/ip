@@ -58,7 +58,8 @@ class Task {
             return true;
         }
         if (obj instanceof Task task) {
-            return this.description.equals(task.description) && this.isDone == task.isDone;
+            return this.description.equals(task.description) 
+                && this.isDone == task.isDone;
         }
         return false;
     }

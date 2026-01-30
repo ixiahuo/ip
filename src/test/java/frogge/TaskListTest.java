@@ -1,15 +1,14 @@
 package frogge;
 
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
 class TaskListTest {
-
     private TaskList taskList;
 
     @BeforeEach
@@ -23,7 +22,6 @@ class TaskListTest {
 
         taskList.add(task);
 
-        // fill in expected values
         assertEquals(1, taskList.numTasks);
         assertEquals(new Todo("read book"), taskList.get(1));
     }

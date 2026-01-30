@@ -45,8 +45,9 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! Follow the following format for todo:\n" + 
-                "   todo [description]"));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! "
+                        + "Follow the following format for todo:\n" 
+                        + "   todo [description]"));
     }
 
     /**
@@ -113,9 +114,11 @@ class Parser {
                 break;
             }
         }
+        
         if (fromIndex == args.length) {
             throw new FroggeException("*ribbit* I need a start time!");
         }
+
         try {
             return LocalDate.parse(Arrays.stream(args, fromIndex, args.length)
                     .skip(1)
@@ -143,9 +146,11 @@ class Parser {
                 break;
             }
         }
+
         if (toIndex == args.length) {
             throw new FroggeException("*ribbit* I need an end time!");
         }
+        
         try {
             return LocalDate.parse(Arrays.stream(args, toIndex, args.length)
                 .skip(1)

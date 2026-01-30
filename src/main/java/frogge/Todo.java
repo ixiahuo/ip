@@ -23,7 +23,10 @@ class Todo extends Task {
 
     @Override
     String getSaveString() {
-        return "T | " + (this.isDone ? "1" : "0") + " | " + this.description + "\n";
+        return "T | " 
+                + (this.isDone ? "1" : "0") 
+                + " | " + this.description 
+                + "\n";
     }
 
     @Override
@@ -32,7 +35,8 @@ class Todo extends Task {
             return true;
         }
         if (obj instanceof Todo task) {
-            return this.description.equals(task.description) && this.isDone == task.isDone;
+            return this.description.equals(task.description) 
+                    && this.isDone == task.isDone;
         }
         return false;
     }

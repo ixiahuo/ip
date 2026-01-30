@@ -32,9 +32,10 @@ class Deadline extends Task {
 
     @Override
     String getSaveString() {
-        return "D | " + (this.isDone ? "1" : "0") +
-                " | " + this.description +
-                " | " + this.deadline + "\n";
+        return "D | " + (this.isDone ? "1" : "0") 
+                + " | " + this.description
+                + " | " + this.deadline 
+                + "\n";
     }
 
     @Override
@@ -43,15 +44,18 @@ class Deadline extends Task {
             return true;
         }
         if (obj instanceof Deadline task) {
-            return this.description.equals(task.description) && this.isDone == task.isDone &&
-                    this.deadline.equals(task.deadline);
+            return this.description.equals(task.description) 
+                    && this.isDone == task.isDone 
+                    && this.deadline.equals(task.deadline);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + 
-                this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() 
+                + " (by: " 
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) 
+                + ")";
     }
 }

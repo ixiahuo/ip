@@ -75,6 +75,7 @@ class TaskList {
         String desc = Parser.getEventDescription(userInput);
         LocalDate start = Parser.getStart(userInput);
         LocalDate end = Parser.getEnd(userInput);
+        
         Event task = new Event(desc, start, end);
         this.taskList.add(task);
         this.numTasks++;    
