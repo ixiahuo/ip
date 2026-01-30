@@ -3,25 +3,42 @@ package frogge;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event with a start and end date.
+ */
 class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
 
-    Event(String name, LocalDate start, LocalDate end) {
-        super(name);
+    /**
+     * Constructor for Event.
+     * @param description Description of event.
+     * @param start LocalDate representation of start date of event.
+     * @param end LocalDate representation of end date of event.
+     */
+    Event(String description, LocalDate start, LocalDate end) {
+        super(description);
         this.start = start;
         this.end = end;
     }
 
-    Event(String name, boolean isDone, LocalDate start, LocalDate end) {
-        super(name, isDone);
+    /**
+     * Alternative constructor for Event.
+     * @param description Description of event.
+     * @param isDone Boolean representing whether the event is over.
+     * @param start LocalDate representation of start date of event.
+     * @param end LocalDate representation of end date of event.
+     */
+    Event(String description, boolean isDone, LocalDate start, LocalDate end) {
+        super(description, isDone);
         this.start = start;
         this.end = end;
     }
 
+    @Override
     String getSaveString() {
         return "E | " + (this.isDone ? "1" : "0") +
-                " | " + this.name +
+                " | " + this.description +
                 " | " + this.start +
                 " | " + this.end + "\n";
     }
@@ -32,7 +49,7 @@ class Event extends Task {
             return true;
         }
         if (obj instanceof Event task) {
-            return this.name.equals(task.name) && this.isDone == task.isDone &&
+            return this.description.equals(task.description) && this.isDone == task.isDone &&
                     this.start.equals(task.start) && this.end.equals(task.end);
         }
         return false;

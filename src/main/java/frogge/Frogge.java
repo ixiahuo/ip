@@ -2,11 +2,18 @@ package frogge;
 
 import java.util.Scanner;
 
+/**
+ * Main class that the Frogge chat bot runs from.
+ */
 class Frogge {
     private Ui ui;
     private Storage storage;
     private TaskList tasklist;
 
+    /**
+     * Constructor for Frogge.
+     * Initialises objects of class Ui, TaskList and Storage.
+     */
     Frogge() {
         this.ui = new Ui();
         this.tasklist = new TaskList();
@@ -19,6 +26,10 @@ class Frogge {
         }
     }
 
+    /**
+     * Main functionality of the Frogge chat bot.
+     * Performs different tasks based on the user input given.
+     */
     void run() {
         ui.printStart();
         ui.showLine();
