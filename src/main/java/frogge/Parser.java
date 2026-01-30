@@ -24,6 +24,13 @@ class Parser {
      * @return int object representing the task number in the TaskList. 
      * @throws FroggeException If no task number is provided or if the task number is invalid or out of bounds.
      */
+    static String getKeyword(String userInput) throws FroggeException {
+        return Arrays.stream(userInput.split(" "))
+                .skip(1)
+                .reduce((x,y) -> x + " " + y)
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+    }
+
     static int getTaskNum(String userInput) throws FroggeException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]);
@@ -45,9 +52,7 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description! "
-                        + "Follow the following format for todo:\n" 
-                        + "   todo [description]"));
+                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
     }
 
     /**

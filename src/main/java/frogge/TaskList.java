@@ -136,4 +136,24 @@ class TaskList {
             throw new FroggeException("*ribbit* this task doesn't exist.");
         }
     }
+
+    TaskList find(String userInput) throws FroggeException {
+        String keyword = Parser.getKeyword(userInput);
+        TaskList foundTasks = new TaskList();
+        for (int i = 0; i < this.numTasks; i++) {
+            if (this.taskList.get(i).description.contains(keyword)) {
+                foundTasks.add(this.taskList.get(i));
+            }
+        }
+        return foundTasks;
+    }
+
+    @Override
+    public String toString() {
+        String string = "";
+        for (int i = 0; i < this.numTasks; i++) {
+            string += (i + 1) + ". " + this.taskList.get(i) + "\n  ";
+        }
+        return string;
+    }
 }
