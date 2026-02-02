@@ -7,23 +7,23 @@ class Ui {
     /**
      * Prints greeting at the start.
      */
-    void printStart() {
-        System.out.println("i'm frogge! *ribbit*\nwhat can i do for you?");
+    String printStart() {
+        return "i'm frogge! *ribbit*\nwhat can i do for you?";
     }
 
     /**
      * Prints goodbye at the end.
      */
-    void printExit() {
-        System.out.println("*ribbit* come back soon!");
+    String printExit() {
+        return "*ribbit* come back soon!";
     }
 
     /**
      * Prints error message.
      * @param e Exception that was thrown.
      */
-    void printError(Exception e) {
-        System.out.println(e.getMessage());
+    String printError(Exception e) {
+        return e.getMessage();
     }
 
     /**
@@ -31,16 +31,16 @@ class Ui {
      * @param message String to be printed with the object.
      * @param toPrint Object to be printed.
      */
-    void display(String message, Object toPrint) {
-        System.out.println("*ribbit* " + message + "\n  " + toPrint.toString());
+    String display(String message, Object toPrint) {
+        return "*ribbit* " + message + "\n  " + toPrint.toString();
     }
 
     /**
      * Prints a formatted message.
      * @param message String to be printed.
      */
-    void display(String message) {
-        System.out.println("*ribbit* " + message);
+    String display(String message) {
+        return "*ribbit* " + message;
     }
 
     /**

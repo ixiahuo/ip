@@ -86,10 +86,12 @@ class TaskList {
      * Displays the full list.
      * Called using the "list" command.
      */
-    void list() {
+    String list() {
+        String s = "";
         for (int i = 0; i < this.numTasks; i++) {
-            System.out.println(i + 1 + ". " + this.taskList.get(i));
+           s += i + 1 + ". " + this.taskList.get(i) + "\n";
         }
+        return s;
     }
 
     /**
