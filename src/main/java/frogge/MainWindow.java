@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Frogge frogge;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image froggeImage = new Image(this.getClass().getResourceAsStream("/images/frogge.png"));
+    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image FROGGE_IMAGE = new Image(this.getClass().getResourceAsStream("/images/frogge.png"));
 
     @FXML
     public void initialize() {
@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Frogge instance */
     public void setFrogge(Frogge f) {
         frogge = f;
-        dialogContainer.getChildren().add(DialogBox.getFroggeDialog(f.initGreeting(), froggeImage));
+        dialogContainer.getChildren().add(DialogBox.getFroggeDialog(f.initGreeting(), FROGGE_IMAGE));
     }
 
     /**
@@ -49,8 +49,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = frogge.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFroggeDialog(response, froggeImage)
+                DialogBox.getUserDialog(input, USER_IMAGE),
+                DialogBox.getFroggeDialog(response, FROGGE_IMAGE)
         );
         userInput.clear();
         if (input.equals("bye")) {

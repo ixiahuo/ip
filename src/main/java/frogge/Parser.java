@@ -119,6 +119,8 @@ class Parser {
                 break;
             }
         }
+
+        assert(fromIndex >= 1 && fromIndex <= args.length);        
         
         if (fromIndex == args.length) {
             throw new FroggeException("*ribbit* I need a start time!");
@@ -151,6 +153,8 @@ class Parser {
                 break;
             }
         }
+
+        assert(toIndex >= 1 && toIndex <= args.length);
 
         if (toIndex == args.length) {
             throw new FroggeException("*ribbit* I need an end time!");
