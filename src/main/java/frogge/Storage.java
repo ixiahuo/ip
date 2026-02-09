@@ -145,6 +145,7 @@ class Storage {
                     inputBuffer.append('\n');
                 }
             }
+            
             file.close();
             String inputStr = inputBuffer.toString();
             FileWriter saveWriter = new FileWriter(saveFile.toString());
