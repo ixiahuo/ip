@@ -3,7 +3,7 @@ package frogge;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.stream.IntStream;
+
 /**
  * Handles parsing and interpretation of user input.
  */
@@ -113,10 +113,12 @@ class Parser {
      */
     static LocalDate getStart(String userInput) throws FroggeException {
         String[] args = userInput.split(" ");
-
-        int fromIndex = IntStream.rangeClosed(0, args.length)
-                .takeWhile(x -> !args[x].equals("/from"))
-                .reduce(0, (x,y) -> y) + 1;
+        int fromIndex;
+        for (fromIndex = 0; fromIndex < args.length; fromIndex++) {
+            if (args[fromIndex].equals("/from")) {
+                break;
+            }
+        }
         
         if (fromIndex == args.length) {
             throw new FroggeException("*ribbit* I need a start time!");
@@ -143,9 +145,12 @@ class Parser {
      */
     static LocalDate getEnd(String userInput) throws FroggeException {
         String[] args = userInput.split(" ");
-        int toIndex = IntStream.rangeClosed(0, args.length)
-                .takeWhile(x -> !args[x].equals("/to"))
-                .reduce(0, (x,y) -> y) + 1;
+        int toIndex;
+        for (toIndex = 0; toIndex < args.length; toIndex++) {
+            if (args[toIndex].equals("/to")) {
+                break;
+            }
+        }
 
         if (toIndex == args.length) {
             throw new FroggeException("*ribbit* I need an end time!");
