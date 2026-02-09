@@ -4,7 +4,7 @@ package frogge;
  * Generic super class for Todo, Deadline and Event.
  * Represents a generic task object.
  */
-class Task {
+abstract class Task {
     protected final String description;
     protected boolean isDone;
 
@@ -46,11 +46,9 @@ class Task {
 
     /**
      * Obtain a String representation of the Task used to write to the save file.
-     * @return String used to wriet to the save file.
+     * @return String used to write to the save file.
      */
-    String getSaveString() {
-        return "\n";
-    }
+    abstract String getSaveString();
 
     @Override
     public boolean equals(Object obj) {

@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Handles reading and writing from the save file.
  */
 class Storage {
-    private TaskList tasklist;
+    private TaskList taskList;
     private static File saveDirectory = new File(System.getProperty("user.dir") + "/data");
     private static File saveFile = new File(saveDirectory, "frogge.txt");
 
@@ -23,7 +23,7 @@ class Storage {
      * @param tasklist TaskList to be initialised.
      */
     Storage(TaskList tasklist) {
-        this.tasklist = tasklist;
+        this.taskList = tasklist;
         try {
             saveDirectory.mkdir();
             saveFile.createNewFile();
@@ -47,18 +47,18 @@ class Storage {
                 if (!data.equals("")) {
                     String[] savedFields = data.split(" \\| ");
                     if (savedFields[0].equals("T")) {
-                        this.tasklist.add(new Todo(savedFields[2]));
+                        this.taskList.add(new Todo(savedFields[2]));
                     } else if (savedFields[0].equals("D")) {
-                        this.tasklist.add(new Deadline(savedFields[2],
+                        this.taskList.add(new Deadline(savedFields[2],
                                 LocalDate.parse(savedFields[3])));
                     } else if (savedFields[0].equals("E")) {
-                        this.tasklist.add(new Event(savedFields[2], 
+                        this.taskList.add(new Event(savedFields[2], 
                                 LocalDate.parse(savedFields[3]), 
                                 LocalDate.parse(savedFields[4])));
                     }
                     numTasks++;
                     if (savedFields[1].equals("1")) {
-                        this.tasklist.mark(numTasks);
+                        this.taskList.mark(numTasks);
                     }
                 }
             }
