@@ -14,8 +14,8 @@ import java.util.Scanner;
  */
 class Storage {
     private TaskList tasklist;
-    private static File saveDirectory = new File(System.getProperty("user.dir") + "/data");
-    private static File saveFile = new File(saveDirectory, "frogge.txt");
+    private final static File SAVE_DIRECTORY = new File(System.getProperty("user.dir") + "/data");
+    private final static File SAVE_FILE = new File(SAVE_DIRECTORY, "frogge.txt");
 
     /**
      * Constructor for Storage.
@@ -25,8 +25,8 @@ class Storage {
     Storage(TaskList tasklist) {
         this.tasklist = tasklist;
         try {
-            saveDirectory.mkdir();
-            saveFile.createNewFile();
+            SAVE_DIRECTORY.mkdir();
+            SAVE_FILE.createNewFile();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -40,7 +40,7 @@ class Storage {
      */
     void init() throws FroggeException {
         try {
-            Scanner fileScanner = new Scanner(saveFile);
+            Scanner fileScanner = new Scanner(SAVE_FILE);
             int numTasks = 0;
             while (fileScanner.hasNextLine()) {
                 String data = fileScanner.nextLine();
@@ -75,7 +75,7 @@ class Storage {
      * @throws Exception If there is an error reading the save file. 
      */
     String getLine(int lineNum) throws Exception {
-        Scanner fileScanner = new Scanner(saveFile);
+        Scanner fileScanner = new Scanner(SAVE_FILE);
         String line = "";
         for (int i = 0; i < lineNum; i++) {
             line = fileScanner.nextLine();
@@ -93,7 +93,7 @@ class Storage {
      */
     void append(Task task) throws FroggeException {
         try {
-            FileWriter saveFileWriter = new FileWriter(saveFile.toString(), true);
+            FileWriter saveFileWriter = new FileWriter(SAVE_FILE.toString(), true);
             saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
@@ -109,7 +109,7 @@ class Storage {
      */
     void update(String oldString, String newString) throws FroggeException {
         try {
-            BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
+            BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
@@ -120,7 +120,7 @@ class Storage {
             file.close();
             String inputStr = inputBuffer.toString();
             inputStr = inputStr.replace(oldString, newString); 
-            FileWriter saveWriter = new FileWriter(saveFile.toString());
+            FileWriter saveWriter = new FileWriter(SAVE_FILE.toString());
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
@@ -135,7 +135,7 @@ class Storage {
      */
     void delete(String toDelete) throws FroggeException {
         try {
-            BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
+            BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
@@ -147,7 +147,7 @@ class Storage {
             }
             file.close();
             String inputStr = inputBuffer.toString();
-            FileWriter saveWriter = new FileWriter(saveFile.toString());
+            FileWriter saveWriter = new FileWriter(SAVE_FILE.toString());
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
