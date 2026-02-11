@@ -97,6 +97,7 @@ public class Frogge {
             try {
                 return executeTodo(input);
             } catch (FroggeException e) {
+                assert(input.split(" ").length < 1);
                 return ui.printError(e) + this.ui.display("format:", "todo [description]");
             }
         case "deadline":

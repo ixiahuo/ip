@@ -14,8 +14,8 @@ import java.util.Scanner;
  */
 class Storage {
     private TaskList taskList;
-    private static File saveDirectory = new File(System.getProperty("user.dir") + "/data");
-    private static File saveFile = new File(saveDirectory, "frogge.txt");
+    private final static File SAVE_DIRECTORY = new File(System.getProperty("user.dir") + "/data");
+    private final static File SAVE_FILE = new File(SAVE_DIRECTORY, "frogge.txt");
 
     /**
      * Constructor for Storage.
@@ -25,8 +25,8 @@ class Storage {
     Storage(TaskList tasklist) {
         this.taskList = tasklist;
         try {
-            saveDirectory.mkdir();
-            saveFile.createNewFile();
+            SAVE_DIRECTORY.mkdir();
+            SAVE_FILE.createNewFile();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -40,7 +40,7 @@ class Storage {
      */
     void init() throws FroggeException {
         try {
-            Scanner fileScanner = new Scanner(saveFile);
+            Scanner fileScanner = new Scanner(SAVE_FILE);
             int numTasks = 0;
             while (fileScanner.hasNextLine()) {
                 String data = fileScanner.nextLine();
@@ -49,9 +49,11 @@ class Storage {
                     if (savedFields[0].equals("T")) {
                         this.taskList.add(new Todo(savedFields[2]));
                     } else if (savedFields[0].equals("D")) {
-                        this.taskList.add(new Deadline(savedFields[2],
+                        assert(savedFields.length == 4);
+                        this.tasklist.add(new Deadline(savedFields[2],
                                 LocalDate.parse(savedFields[3])));
                     } else if (savedFields[0].equals("E")) {
+                        assert(savedFields.length == 5);
                         this.taskList.add(new Event(savedFields[2], 
                                 LocalDate.parse(savedFields[3]), 
                                 LocalDate.parse(savedFields[4])));
@@ -63,6 +65,7 @@ class Storage {
                 }
             }
             fileScanner.close();
+            assert(this.tasklist.numTasks == numTasks);
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't load your save file right now >~<");
         }
@@ -75,7 +78,7 @@ class Storage {
      * @throws Exception If there is an error reading the save file. 
      */
     String getLine(int lineNum) throws Exception {
-        Scanner fileScanner = new Scanner(saveFile);
+        Scanner fileScanner = new Scanner(SAVE_FILE);
         String line = "";
         for (int i = 0; i < lineNum; i++) {
             line = fileScanner.nextLine();
@@ -93,7 +96,7 @@ class Storage {
      */
     void append(Task task) throws FroggeException {
         try {
-            FileWriter saveFileWriter = new FileWriter(saveFile.toString(), true);
+            FileWriter saveFileWriter = new FileWriter(SAVE_FILE.toString(), true);
             saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
@@ -109,7 +112,7 @@ class Storage {
      */
     void update(String oldString, String newString) throws FroggeException {
         try {
-            BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
+            BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
@@ -120,7 +123,7 @@ class Storage {
             file.close();
             String inputStr = inputBuffer.toString();
             inputStr = inputStr.replace(oldString, newString); 
-            FileWriter saveWriter = new FileWriter(saveFile.toString());
+            FileWriter saveWriter = new FileWriter(SAVE_FILE.toString());
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
@@ -135,7 +138,7 @@ class Storage {
      */
     void delete(String toDelete) throws FroggeException {
         try {
-            BufferedReader file = new BufferedReader(new FileReader(saveFile.toString()));
+            BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
 
@@ -147,7 +150,7 @@ class Storage {
             }
             file.close();
             String inputStr = inputBuffer.toString();
-            FileWriter saveWriter = new FileWriter(saveFile.toString());
+            FileWriter saveWriter = new FileWriter(SAVE_FILE.toString());
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
