@@ -22,8 +22,8 @@ class Storage {
      * Creates data/frogge.txt if file does not exist.
      * @param tasklist TaskList to be initialised.
      */
-    Storage(TaskList tasklist) {
-        this.taskList = tasklist;
+    Storage(TaskList taskList) {
+        this.taskList = taskList;
         try {
             SAVE_DIRECTORY.mkdir();
             SAVE_FILE.createNewFile();
@@ -50,7 +50,7 @@ class Storage {
                         this.taskList.add(new Todo(savedFields[2]));
                     } else if (savedFields[0].equals("D")) {
                         assert(savedFields.length == 4);
-                        this.tasklist.add(new Deadline(savedFields[2],
+                        this.taskList.add(new Deadline(savedFields[2],
                                 LocalDate.parse(savedFields[3])));
                     } else if (savedFields[0].equals("E")) {
                         assert(savedFields.length == 5);
@@ -65,7 +65,7 @@ class Storage {
                 }
             }
             fileScanner.close();
-            assert(this.tasklist.numTasks == numTasks);
+            assert(this.taskList.numTasks == numTasks);
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't load your save file right now >~<");
         }
