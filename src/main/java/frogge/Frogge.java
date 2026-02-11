@@ -18,63 +18,97 @@ public class Frogge {
         }
     }
 
-    public String executeTodo(String input) throws FroggeException {
-        Todo todo = this.taskList.addTodo(input);
-        this.storage.append(todo);
-        return this.ui.display("added:", todo);
+    public String executeTodo(String input) {
+        try {
+            Todo todo = this.taskList.addTodo(input);
+            this.storage.append(todo);
+            return this.ui.display("added:", todo);
+        } catch (FroggeException e) {
+            return ui.printError(e) + this.ui.display("format:", "todo [description]");
+        }
     }
 
-    public String executeDeadline(String input) throws FroggeException {
-        Deadline deadline = this.taskList.addDeadline(input);
-        this.storage.append(deadline);
-        return this.ui.display("added:", deadline);
+    public String executeDeadline(String input) {
+        try {
+            Deadline deadline = this.taskList.addDeadline(input);
+            this.storage.append(deadline);
+            return this.ui.display("added:", deadline);
+        } catch (FroggeException e) {
+            return ui.printError(e) + this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
+        }
     }
 
-    public String executeEvent(String input) throws FroggeException {
-        Event event = this.taskList.addEvent(input);
-        this.storage.append(event);
-        return this.ui.display("added:", event);
+    public String executeEvent(String input) {
+        try {
+            Event event = this.taskList.addEvent(input);
+            this.storage.append(event);
+            return this.ui.display("added:", event);
+        } catch (FroggeException e) {
+            return ui.printError(e) + this.ui.display("format:",
+                    "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+        }
     }
 
-    public String executeMark(String input) throws FroggeException {
-        String oldSaveString = this.taskList
-        .get(Parser.getTaskNum(input))
-        .getSaveString();
-
-        Task task = this.taskList.mark(Parser.getTaskNum(input));
-
-        String newSaveString = this.taskList
-                .get(Parser.getTaskNum(input))
-                .getSaveString();
-        this.storage.update(oldSaveString, newSaveString);
-
-        return ui.display("marked", task);
+    public String executeList() {
+        return this.ui.display(this.taskList.numTasks + " items in your list:\n") 
+                + this.taskList.list();
     }
 
-    public String executeUnmark(String input) throws FroggeException {
-        String oldSaveString = this.taskList
-        .get(Parser.getTaskNum(input))
-        .getSaveString();
+    public String executeMark(String input) {
+        try {
+            String oldSaveString = this.taskList
+            .get(Parser.getTaskNum(input))
+            .getSaveString();
 
-        Task task = this.taskList.unmark(Parser.getTaskNum(input));
+            Task task = this.taskList.mark(Parser.getTaskNum(input));
 
-        String newSaveString = this.taskList
-                .get(Parser.getTaskNum(input))
-                .getSaveString();
-        this.storage.update(oldSaveString, newSaveString);
+            String newSaveString = this.taskList
+                    .get(Parser.getTaskNum(input))
+                    .getSaveString();
+            this.storage.update(oldSaveString, newSaveString);
 
-        return ui.display("unmarked", task);
+            return ui.display("marked", task);
+        } catch (FroggeException e) {
+            return ui.printError(e) + ui.display("format:", "mark [task number]");
+        }
     }
 
-    public String executeDelete(String input) throws FroggeException {
-        Task deleted = this.taskList.delete(Parser.getTaskNum(input));
-        this.storage.delete(deleted.getSaveString());
-        return ui.display("deleted:", deleted);
+    public String executeUnmark(String input) {
+        try {
+            String oldSaveString = this.taskList
+            .get(Parser.getTaskNum(input))
+            .getSaveString();
+
+            Task task = this.taskList.unmark(Parser.getTaskNum(input));
+
+            String newSaveString = this.taskList
+                    .get(Parser.getTaskNum(input))
+                    .getSaveString();
+            this.storage.update(oldSaveString, newSaveString);
+
+            return ui.display("unmarked", task);
+        } catch (FroggeException e) {
+            return ui.printError(e) + ui.display("format:", "unmark [task number]");
+        }
     }
 
-    public String executeFind(String input) throws FroggeException {
-        TaskList foundTasks = this.taskList.find(input);
-        return ui.display("found:", foundTasks);
+    public String executeDelete(String input) {
+        try {
+            Task deleted = this.taskList.delete(Parser.getTaskNum(input));
+            this.storage.delete(deleted.getSaveString());
+            return ui.display("deleted:", deleted);
+        } catch (FroggeException e) {
+            return ui.printError(e) + ui.display("format:", "delete [task number]");
+        }
+    }
+
+    public String executeFind(String input) {
+        try {
+            TaskList foundTasks = this.taskList.find(input);
+            return ui.display("found:", foundTasks);
+        } catch (FroggeException e) {
+            return ui.printError(e) + ui.display("format:", "find [keyword]");
+        }
     }
 
     public static void main(String[] args) {
@@ -94,53 +128,21 @@ public class Frogge {
         case "bye":
             return ui.printExit();
         case "todo":
-            try {
-                return executeTodo(input);
-            } catch (FroggeException e) {
-                assert(input.split(" ").length < 1);
-                return ui.printError(e) + this.ui.display("format:", "todo [description]");
-            }
+            return executeTodo(input);
         case "deadline":
-            try {
-                return executeDeadline(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
-            }
+            return executeDeadline(input);
         case "event":
-            try {
-                return executeEvent(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + this.ui.display("format:",
-                        "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
-            }
+            return executeEvent(input);
         case "list":
-            // return each item in the list
-            return this.ui.display(this.taskList.numTasks + " items in your list:\n") 
-                    + this.taskList.list();
+            return executeList();
         case "mark":
-            try {
-                return executeMark(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + ui.display("format:", "mark [task number]");
-            }
+            return executeMark(input);
         case "unmark":
-            try {
-                return executeUnmark(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + ui.display("format:", "unmark [task number]");
-            }
+            return executeUnmark(input);
         case "delete":
-            try {
-                return executeDelete(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + ui.display("format:", "delete [task number]");
-            }
+            return executeDelete(input);
         case "find" :
-            try {
-                return executeFind(input);
-            } catch (FroggeException e) {
-                return ui.printError(e) + ui.display("format:", "find [keyword]");
-            }
+            return executeFind(input);
         default:
             return ui.printError(new FroggeException("*ribbit* i don't understand what you're saying! >~<"));
         }
