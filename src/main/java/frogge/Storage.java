@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Represents the storage media that the tasks are saved to and loaded from.
@@ -76,10 +77,10 @@ class Storage {
      */
     String getLine(int lineNum) throws Exception {
         Scanner fileScanner = new Scanner(saveFile);
-        String line = "";
-        for (int i = 0; i < lineNum; i++) {
-            line = fileScanner.nextLine();
-        }
+        String line = Stream.<Integer>iterate(0, i -> i + 1)
+                .limit(lineNum)
+                .map(i -> fileScanner.nextLine())
+                .reduce("", (x,y) -> y);
         fileScanner.close();
         return line;
     }
