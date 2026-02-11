@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Handles reading and writing from the save file.
  */
 class Storage {
-    private TaskList tasklist;
+    private TaskList taskList;
     private final static File SAVE_DIRECTORY = new File(System.getProperty("user.dir") + "/data");
     private final static File SAVE_FILE = new File(SAVE_DIRECTORY, "frogge.txt");
 
@@ -22,8 +22,8 @@ class Storage {
      * Creates data/frogge.txt if file does not exist.
      * @param tasklist TaskList to be initialised.
      */
-    Storage(TaskList tasklist) {
-        this.tasklist = tasklist;
+    Storage(TaskList taskList) {
+        this.taskList = taskList;
         try {
             SAVE_DIRECTORY.mkdir();
             SAVE_FILE.createNewFile();
@@ -47,25 +47,25 @@ class Storage {
                 if (!data.equals("")) {
                     String[] savedFields = data.split(" \\| ");
                     if (savedFields[0].equals("T")) {
-                        this.tasklist.add(new Todo(savedFields[2]));
+                        this.taskList.add(new Todo(savedFields[2]));
                     } else if (savedFields[0].equals("D")) {
                         assert(savedFields.length == 4);
-                        this.tasklist.add(new Deadline(savedFields[2],
+                        this.taskList.add(new Deadline(savedFields[2],
                                 LocalDate.parse(savedFields[3])));
                     } else if (savedFields[0].equals("E")) {
                         assert(savedFields.length == 5);
-                        this.tasklist.add(new Event(savedFields[2], 
+                        this.taskList.add(new Event(savedFields[2], 
                                 LocalDate.parse(savedFields[3]), 
                                 LocalDate.parse(savedFields[4])));
                     }
                     numTasks++;
                     if (savedFields[1].equals("1")) {
-                        this.tasklist.mark(numTasks);
+                        this.taskList.mark(numTasks);
                     }
                 }
             }
             fileScanner.close();
-            assert(this.tasklist.numTasks == numTasks);
+            assert(this.taskList.numTasks == numTasks);
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't load your save file right now >~<");
         }

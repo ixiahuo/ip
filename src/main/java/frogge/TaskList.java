@@ -9,12 +9,13 @@ import java.time.LocalDate;
 class TaskList {
     private ArrayList<Task> taskList;
     public int numTasks;
+    private final static int MAX_NUMBER_OF_TASKS = 100;
 
     /**
      * Constructor for TaskList.
      */
     TaskList() {
-        this.taskList = new ArrayList<Task>(100);
+        this.taskList = new ArrayList<Task>(MAX_NUMBER_OF_TASKS);
         this.numTasks = 0;
     }
 
