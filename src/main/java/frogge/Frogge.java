@@ -111,6 +111,16 @@ public class Frogge {
         }
     }
 
+    public String executeSort() {
+        try {
+            this.taskList.sort();
+            this.storage.store();
+            return executeList();
+        } catch (FroggeException e) {
+            return ui.printError(e);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello!");
     }
@@ -141,8 +151,10 @@ public class Frogge {
             return executeUnmark(input);
         case "delete":
             return executeDelete(input);
-        case "find" :
+        case "find":
             return executeFind(input);
+        case "sort":
+            return executeSort();
         default:
             return ui.printError(new FroggeException("*ribbit* i don't understand what you're saying! >~<"));
         }

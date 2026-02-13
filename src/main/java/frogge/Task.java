@@ -4,7 +4,7 @@ package frogge;
  * Generic super class for Todo, Deadline and Event.
  * Represents a generic task object.
  */
-abstract class Task {
+abstract class Task implements Comparable<Task> {
     protected final String description;
     protected boolean isDone;
 
@@ -49,6 +49,17 @@ abstract class Task {
      * @return String used to write to the save file.
      */
     abstract String getSaveString();
+
+    @Override
+    public int compareTo(Task other) {
+        if (this.isDone == false && other.isDone == true) {
+            return -1;
+        } else if (this.isDone == true && other.isDone == false) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

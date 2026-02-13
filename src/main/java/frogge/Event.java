@@ -45,6 +45,21 @@ class Event extends Task {
     }
 
     @Override
+    public int compareTo(Task other) {
+        int doneCompare = super.compareTo(other);
+        if (super.compareTo(other) == 0) {
+            if (other instanceof Todo) {
+                return -1;
+            } else if (other instanceof Deadline) {
+                return 1;
+            } else if (other instanceof Event e) {
+                return this.start.compareTo(e.start);
+            }
+        }
+        return doneCompare;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

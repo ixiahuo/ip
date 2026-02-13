@@ -1,6 +1,7 @@
 package frogge;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.time.LocalDate;
 
 /**
@@ -150,6 +151,20 @@ class TaskList {
         }
         return foundTasks;
     }
+
+    void sort() {
+        for (int i = 0; i < this.numTasks - 1; i++) {
+            for (int j = 0; j < this.numTasks - i - 1; j++) {
+                Task left = this.taskList.get(j);
+                Task right = this.taskList.get(j+1);
+                if (left.compareTo(right) > 0) {
+                    this.taskList.set(j, right);
+                    this.taskList.set(j+1, left);
+                }
+            }
+        }
+    }
+    
 
     @Override
     public String toString() {

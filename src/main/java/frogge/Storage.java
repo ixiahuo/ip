@@ -1,6 +1,7 @@
 package frogge;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -154,6 +155,22 @@ class Storage {
             FileWriter saveWriter = new FileWriter(SAVE_FILE.toString());
             saveWriter.write(inputStr);
             saveWriter.close();
+        } catch (IOException e) {
+            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+        }
+    }
+
+    public void store() throws FroggeException {
+        try {
+            FileWriter fw = new FileWriter(SAVE_FILE.toString(), false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for (int i = 0; i < this.taskList.numTasks; i++) {
+                bw.write(this.taskList.get(i + 1).getSaveString());
+                bw.newLine();
+            }
+            
+            bw.close();
         } catch (IOException e) {
             throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
         }

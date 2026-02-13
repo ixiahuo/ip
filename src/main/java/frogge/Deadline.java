@@ -39,6 +39,19 @@ class Deadline extends Task {
     }
 
     @Override
+    public int compareTo(Task other) {
+        int doneCompare = super.compareTo(other);
+        if (super.compareTo(other) == 0) {
+            if (other instanceof Event || other instanceof Todo) {
+                return -1;
+            } else if (other instanceof Deadline d) {
+                return this.deadline.compareTo(d.deadline);
+            }
+        }
+        return doneCompare;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
