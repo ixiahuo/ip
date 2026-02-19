@@ -8,13 +8,24 @@ import java.util.Arrays;
  * Handles parsing and interpretation of user input.
  */
 class Parser {
+
+    /**
+     * Removes additional white space from the user input so additional white space
+     * will not invalidate a command.
+     * @param userInput String to be parsed.
+     * @return String object without additional white space.
+     */
+    static String removeWhiteSpace(String userInput) {
+        return userInput.trim().replaceAll(" +", " ");
+    }
+
     /**
      * Extracts the command string from the given user input.
      * @param userInput String to be parsed.
      * @return String object representing the command to be executed in Frogge.
      */
     static String getCommand(String userInput) {
-        return userInput.split(" ")[0];
+        return removeWhiteSpace(userInput).split(" ")[0];
     }
 
     /**
@@ -25,7 +36,7 @@ class Parser {
      * @throws FroggeException If no task number is provided or if the task number is invalid or out of bounds.
      */
     static String getKeyword(String userInput) throws FroggeException {
-        return Arrays.stream(userInput.split(" "))
+        return Arrays.stream(removeWhiteSpace(userInput).split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
                 .orElseThrow(() -> new FroggeException("*ribbit* i need a keyword!"));
@@ -33,7 +44,7 @@ class Parser {
 
     static int getTaskNum(String userInput) throws FroggeException {
         try {
-            return Integer.parseInt(userInput.split(" ")[1]);
+            return Integer.parseInt(removeWhiteSpace(userInput).split(" ")[1]);
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* what's the task number!");
         } catch (NumberFormatException e) {
@@ -49,7 +60,7 @@ class Parser {
      * @throws FroggeException If no description is provided.
      */
     static String getTodoDescription(String userInput) throws FroggeException {
-        return Arrays.stream(userInput.split(" "))
+        return Arrays.stream(removeWhiteSpace(userInput).split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
                 .orElseThrow(() -> new FroggeException("*ribbit* i need a description!"));
@@ -63,7 +74,7 @@ class Parser {
      * @throws FroggeException If no description is provided.
      */
     static String getDeadlineDescription(String userInput) throws FroggeException {
-        return Arrays.stream(userInput.split(" "))
+        return Arrays.stream(removeWhiteSpace(userInput).split(" "))
                 .skip(1)
                 .takeWhile(x -> !x.equals("/by"))
                 .reduce((x,y) -> x + " " + y)
@@ -80,7 +91,7 @@ class Parser {
      */
     static LocalDate getDeadline(String userInput) throws FroggeException {
         try {
-            return LocalDate.parse(userInput.split("/by ")[1]);
+            return LocalDate.parse(removeWhiteSpace(userInput).split("/by ")[1]);
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* i need a deadline!");
         } catch (DateTimeException e) {
@@ -96,7 +107,7 @@ class Parser {
      * @throws FroggeException If no description is provided.
      */
     static String getEventDescription(String userInput) throws FroggeException {
-        return Arrays.stream(userInput.split(" "))
+        return Arrays.stream(removeWhiteSpace(userInput).split(" "))
             .skip(1)
             .takeWhile(x -> !x.equals("/from") && !x.equals("/to"))
             .reduce((x,y) -> x + " " + y)
@@ -112,13 +123,11 @@ class Parser {
      * @throws FroggeException If no start date is provided.
      */
     static LocalDate getStart(String userInput) throws FroggeException {
-        String[] args = userInput.split(" ");
-        int fromIndex;
-        for (fromIndex = 0; fromIndex < args.length; fromIndex++) {
-            if (args[fromIndex].equals("/from")) {
-                break;
-            }
-        }
+        String[] args = removeWhiteSpace(userInput).split(" ");
+        int fromIndex = Arrays.stream(args)
+                .takeWhile(x -> !x.equals("/from"))
+                .map(x -> 1)
+                .reduce(0, (x,y) -> x + y);
 
         assert(fromIndex >= 1 && fromIndex <= args.length);        
         
@@ -146,13 +155,11 @@ class Parser {
      * @throws FroggeException If no end date is provided.
      */
     static LocalDate getEnd(String userInput) throws FroggeException {
-        String[] args = userInput.split(" ");
-        int toIndex;
-        for (toIndex = 0; toIndex < args.length; toIndex++) {
-            if (args[toIndex].equals("/to")) {
-                break;
-            }
-        }
+        String[] args = removeWhiteSpace(userInput).split(" ");
+        int toIndex = Arrays.stream(args)
+                .takeWhile(x -> !x.equals("/to"))
+                .map(x -> 1)
+                .reduce(0, (x,y) -> x + y);
 
         assert(toIndex >= 1 && toIndex <= args.length);
 

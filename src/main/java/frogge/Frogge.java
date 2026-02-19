@@ -1,5 +1,7 @@
 package frogge;
 
+import java.io.IOException;
+
 /** 
  * Represents the chat bot entity. 
 */
@@ -44,7 +46,10 @@ public class Frogge {
             this.storage.append(todo);
             return this.ui.display("added:", todo);
         } catch (FroggeException e) {
-            return ui.printError(e) + this.ui.display("format:", "todo [description]");
+            return ui.printError(e) + "\n" 
+                    + this.ui.display("format:", "todo [description]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -60,7 +65,10 @@ public class Frogge {
             this.storage.append(deadline);
             return this.ui.display("added:", deadline);
         } catch (FroggeException e) {
-            return ui.printError(e) + this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
+            return ui.printError(e) + "\n"
+                    + this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -76,8 +84,11 @@ public class Frogge {
             this.storage.append(event);
             return this.ui.display("added:", event);
         } catch (FroggeException e) {
-            return ui.printError(e) + this.ui.display("format:",
+            return ui.printError(e) + "\n"
+                    + this.ui.display("format:",
                     "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -116,7 +127,10 @@ public class Frogge {
             
             return ui.display("marked", task);
         } catch (FroggeException e) {
-            return ui.printError(e) + ui.display("format:", "mark [task number]");
+            return ui.printError(e) + "\n" 
+                    + ui.display("format:", "mark [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -145,7 +159,10 @@ public class Frogge {
 
             return ui.display("unmarked", task);
         } catch (FroggeException e) {
-            return ui.printError(e) + ui.display("format:", "unmark [task number]");
+            return ui.printError(e) + "\n"
+                    + ui.display("format:", "unmark [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -166,7 +183,10 @@ public class Frogge {
             this.storage.delete(deleted.getSaveString());
             return ui.display("deleted:", deleted);
         } catch (FroggeException e) {
-            return ui.printError(e) + ui.display("format:", "delete [task number]");
+            return ui.printError(e) + "\n"
+                    + ui.display("format:", "delete [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -181,7 +201,8 @@ public class Frogge {
             TaskList foundTasks = this.taskList.find(input);
             return ui.display("found:", foundTasks);
         } catch (FroggeException e) {
-            return ui.printError(e) + ui.display("format:", "find [keyword]");
+            return ui.printError(e) + "\n" 
+                    + ui.display("format:", "find [keyword]");
         }
     }
 
@@ -199,7 +220,7 @@ public class Frogge {
             this.taskList.sort();
             this.storage.store();
             return executeList();
-        } catch (FroggeException e) {
+        } catch (IOException e) {
             return ui.printError(e);
         }
     }

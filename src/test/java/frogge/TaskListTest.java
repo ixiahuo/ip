@@ -22,7 +22,7 @@ class TaskListTest {
 
         taskList.add(task);
 
-        assertEquals(1, taskList.numTasks);
+        assertEquals(1, taskList.getTotalTasks());
         assertEquals(new Todo("read book"), taskList.get(1));
     }
 
@@ -41,7 +41,7 @@ class TaskListTest {
         Todo todo = taskList.addTodo("todo read book");
 
         assertNotNull(todo);
-        assertEquals(1, taskList.numTasks);
+        assertEquals(1, taskList.getTotalTasks());
         assertEquals(new Todo("read book"), taskList.get(1));
     }
 
@@ -50,7 +50,7 @@ class TaskListTest {
         Deadline deadline = taskList.addDeadline("deadline submit report /by 2024-01-01");
 
         assertNotNull(deadline);
-        assertEquals(1, taskList.numTasks);
+        assertEquals(1, taskList.getTotalTasks());
         assertEquals(new Deadline("submit report", LocalDate.parse("2024-01-01")), taskList.get(1));
     }
 
@@ -59,7 +59,7 @@ class TaskListTest {
         Event event = taskList.addEvent("event conference /from 2024-01-01 /to 2024-01-03");
 
         assertNotNull(event);
-        assertEquals(1, taskList.numTasks);
+        assertEquals(1, taskList.getTotalTasks());
         assertEquals(new Event("conference", 
                 LocalDate.parse("2024-01-01"), 
                 LocalDate.parse("2024-01-03")), taskList.get(1));
@@ -93,7 +93,7 @@ class TaskListTest {
         Task deleted = taskList.delete(1);
 
         assertEquals(new Todo("task 1"), deleted);
-        assertEquals(1, taskList.numTasks);
+        assertEquals(1, taskList.getTotalTasks());
         assertEquals(new Todo("task 2"), taskList.get(1));
     }
 

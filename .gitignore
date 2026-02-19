@@ -12,3 +12,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 **.class
 /data/frogge.txt
+/src/main/java/frogge/FroggeOld.java
