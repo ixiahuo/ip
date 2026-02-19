@@ -142,8 +142,8 @@ class FroggeOld {
                 break;
             case "find" :
                 try {
-                    TaskList foundTasks = this.tasklist.find(userInput);
-                    ui.display("found:", foundTasks);
+                    String keyword = Parser.getKeyword(userInput);
+                    ui.display("found:", keyword);
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "find [keyword]");

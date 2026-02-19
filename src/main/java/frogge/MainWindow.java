@@ -49,6 +49,10 @@ public class MainWindow extends AnchorPane {
     public void setFrogge(Frogge f) {
         frogge = f;
         dialogContainer.getChildren().add(DialogBox.getFroggeDialog(f.initGreeting(), FROGGE_IMAGE));
+        if (f.isCorrupted) {
+            dialogContainer.getChildren().add(DialogBox.getFroggeDialog("*ribbit* there was an error with your save file"
+                    , FROGGE_IMAGE));
+        }
         updateHealthBar(frogge.getHealth());
     }
 

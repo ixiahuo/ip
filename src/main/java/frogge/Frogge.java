@@ -10,15 +10,17 @@ public class Frogge {
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
+    public boolean isCorrupted;
 
     Frogge() {
         this.ui = new Ui();
         this.taskList = new TaskList();
         this.storage = new Storage(taskList);
+        this.isCorrupted = false;
         try {
             storage.init();
         } catch (FroggeException e) {
-            ui.printError(e);
+            this.isCorrupted = true;
             this.taskList = new TaskList();
         }
     }
@@ -196,8 +198,17 @@ public class Frogge {
      */
     public String executeFind(String input) {
         try {
-            TaskList foundTasks = this.taskList.find(input);
-            return ui.display("found:", foundTasks);
+            String keyword = Parser.getKeyword(input);
+            String result = "";
+            for (int i = 1; i <= this.taskList.getTotalTasks(); i++) {
+                if (this.taskList.get(i).description.contains(keyword)) {
+                    result += i + ". " + this.taskList.get(i) + "\n  ";
+                }
+            }
+            if (result.equals("")) {
+                result += "NONE! >w<";
+            }
+            return ui.display("found:", result);
         } catch (FroggeException e) {
             return ui.printError(e) + "\n" 
                     + ui.display("format:", "find [keyword]");

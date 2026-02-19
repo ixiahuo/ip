@@ -59,6 +59,8 @@ class Storage {
                         this.taskList.add(new Event(savedFields[2], 
                                 LocalDate.parse(savedFields[3]), 
                                 LocalDate.parse(savedFields[4])));
+                    } else {
+                        throw new FroggeException("*ribbit* something's wrong with your save file!");
                     }
                     numTasks++;
                     if (savedFields[1].equals("1")) {
@@ -150,7 +152,7 @@ class Storage {
             String line;
 
             while ((line = file.readLine()) != null) {
-                if (!line.equals(toDelete)) {
+                if (!line.trim().equals(toDelete.trim())) {
                     inputBuffer.append(line);
                     inputBuffer.append('\n');
                 }
@@ -180,7 +182,7 @@ class Storage {
             }
             
             bw.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new IOException("*ribbit* there's a problem reading/writing to your save file! >~<");
         }
     }

@@ -53,7 +53,10 @@ class TaskList {
      * @param taskNum The position of the task to get, starting from 1.
      * @return Task at the specified position.
      */
-    Task get(int taskNum) {
+    Task get(int taskNum) throws FroggeException {
+        if (taskNum > this.totalTasks) {
+            throw new FroggeException("*ribbit* this task doesn't exist!");
+        }
         return this.taskList.get(taskNum - 1);
     }
 
@@ -105,6 +108,10 @@ class TaskList {
         String desc = Parser.getEventDescription(userInput);
         LocalDate start = Parser.getStart(userInput);
         LocalDate end = Parser.getEnd(userInput);
+
+        if (start.compareTo(end) > 0) {
+            throw new FroggeException("*ribbit* did you get your dates messed up?");
+        }
         
         Event task = new Event(desc, start, end);
         this.taskList.add(task);
@@ -162,28 +169,12 @@ class TaskList {
      */
     Task delete(int taskNum) throws FroggeException {
         try {
+            Task deleted = this.taskList.remove(taskNum - 1);
             this.totalTasks--;
-            return this.taskList.remove(taskNum - 1);
+            return deleted;
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* this task doesn't exist.");
         }
-    }
-
-    /**
-     * Finds all Tasks that contain the specified keyword.
-     * @param userInput User input to be parsed by Parser to extract the keyword.
-     * @return TaskList containing only the Tasks that contain the keyword in the Task description.
-     * @throws FroggeException If no keyword is specified.
-     */
-    TaskList find(String userInput) throws FroggeException {
-        String keyword = Parser.getKeyword(userInput);
-        TaskList foundTasks = new TaskList();
-        for (int i = 0; i < this.totalTasks; i++) {
-            if (this.taskList.get(i).description.contains(keyword)) {
-                foundTasks.add(this.taskList.get(i));
-            }
-        }
-        return foundTasks;
     }
 
     /**
