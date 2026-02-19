@@ -1,5 +1,6 @@
 package frogge;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -51,6 +52,8 @@ class FroggeOld {
                 } catch (FroggeException e) {
                     ui.printError(e);
                     this.ui.display("format:", "todo [description]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "deadline":
@@ -61,6 +64,8 @@ class FroggeOld {
                 } catch (FroggeException e) {
                     ui.printError(e);
                     this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "event":
@@ -72,6 +77,8 @@ class FroggeOld {
                     ui.printError(e);
                     this.ui.display("format:",
                             "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "list":
@@ -95,6 +102,8 @@ class FroggeOld {
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "mark [task number]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "unmark":
@@ -115,6 +124,8 @@ class FroggeOld {
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "unmark [task number]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "delete":
@@ -125,6 +136,8 @@ class FroggeOld {
                 } catch (FroggeException e) {
                     ui.printError(e);
                     ui.display("format:", "delete [task number]");
+                } catch (IOException e) {
+                    ui.printError(e);
                 }
                 break;
             case "find" :

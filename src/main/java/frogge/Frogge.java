@@ -1,5 +1,7 @@
 package frogge;
 
+import java.io.IOException;
+
 /** 
  * Represents the chat bot entity. 
 */
@@ -46,6 +48,8 @@ public class Frogge {
         } catch (FroggeException e) {
             return ui.printError(e) + "\n" 
                     + this.ui.display("format:", "todo [description]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -63,6 +67,8 @@ public class Frogge {
         } catch (FroggeException e) {
             return ui.printError(e) + "\n"
                     + this.ui.display("format:", "deadline [description] /by [yyyy-mm-dd]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -81,6 +87,8 @@ public class Frogge {
             return ui.printError(e) + "\n"
                     + this.ui.display("format:",
                     "event [description] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -121,6 +129,8 @@ public class Frogge {
         } catch (FroggeException e) {
             return ui.printError(e) + "\n" 
                     + ui.display("format:", "mark [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -151,6 +161,8 @@ public class Frogge {
         } catch (FroggeException e) {
             return ui.printError(e) + "\n"
                     + ui.display("format:", "unmark [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -173,6 +185,8 @@ public class Frogge {
         } catch (FroggeException e) {
             return ui.printError(e) + "\n"
                     + ui.display("format:", "delete [task number]");
+        } catch (IOException e) {
+            return ui.printError(e);
         }
     }
 
@@ -206,7 +220,7 @@ public class Frogge {
             this.taskList.sort();
             this.storage.store();
             return executeList();
-        } catch (FroggeException e) {
+        } catch (IOException e) {
             return ui.printError(e);
         }
     }

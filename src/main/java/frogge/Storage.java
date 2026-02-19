@@ -97,13 +97,15 @@ class Storage {
      * @param task Task to be converted to a save string and written.
      * @throws FroggeException If the save file is missing.
      */
-    void append(Task task) throws FroggeException {
+    void append(Task task) throws IOException {
         try {
             FileWriter saveFileWriter = new FileWriter(SAVE_FILE.toString(), true);
             saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* i can't write to your save file right now >~<");
+            store();
+            throw new IOException("*ribbit* there's a problem reading/writing to your save file."
+                    + " i'm trying to fix the issue by making a new file! ^w^");
         }
     }
 
@@ -113,7 +115,7 @@ class Storage {
      * @param newString Line to overwrite with.
      * @throws FroggeException If save file is missing.
      */
-    void update(String oldString, String newString) throws FroggeException {
+    void update(String oldString, String newString) throws IOException {
         try {
             BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
@@ -130,7 +132,9 @@ class Storage {
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
+            store();
+            throw new IOException("*ribbit* there's a problem reading/writing to your save file."
+                    + " i'm trying to fix the issue by making a new file! ^w^");
         }
     }
 
@@ -139,7 +143,7 @@ class Storage {
      * @param toDelete String object representing the line to be deleted.
      * @throws FroggeException If save file is missing.
      */
-    void delete(String toDelete) throws FroggeException {
+    void delete(String toDelete) throws IOException {
         try {
             BufferedReader file = new BufferedReader(new FileReader(SAVE_FILE.toString()));
             StringBuffer inputBuffer = new StringBuffer();
@@ -157,23 +161,27 @@ class Storage {
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
+            store();
+            throw new IOException("*ribbit* there's a problem reading/writing to your save file."
+                    + " i'm trying to fix the issue by making a new file! ^w^");
         }
     }
 
-    public void store() throws FroggeException {
+    public void store() throws IOException {
         try {
+            SAVE_DIRECTORY.mkdir();
+            SAVE_FILE.createNewFile();
+
             FileWriter fw = new FileWriter(SAVE_FILE.toString(), false);
             BufferedWriter bw = new BufferedWriter(fw);
             
             for (int i = 0; i < this.taskList.getTotalTasks(); i++) {
                 bw.write(this.taskList.get(i + 1).getSaveString());
-                bw.newLine();
             }
             
             bw.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
+            throw new IOException("*ribbit* there's a problem reading/writing to your save file! >~<");
         }
     }
 }
