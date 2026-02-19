@@ -3,15 +3,14 @@ package frogge;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
 
 /**
  * Controller for the main GUI.
@@ -25,6 +24,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private ProgressBar healthBar;
 
     private Frogge frogge;
 
@@ -36,10 +37,15 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    public void updateHealthBar(double progress) {
+        healthBar.setProgress(progress);
+    }
+
     /** Injects the Frogge instance */
     public void setFrogge(Frogge f) {
         frogge = f;
         dialogContainer.getChildren().add(DialogBox.getFroggeDialog(f.initGreeting(), FROGGE_IMAGE));
+        updateHealthBar(frogge.getHealth());
     }
 
     /**
@@ -55,6 +61,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getFroggeDialog(response, FROGGE_IMAGE)
         );
         userInput.clear();
+        updateHealthBar(frogge.getHealth());
         if (input.equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());

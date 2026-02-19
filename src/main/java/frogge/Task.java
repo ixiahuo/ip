@@ -27,6 +27,10 @@ abstract class Task implements Comparable<Task> {
         this.description = description;
         this.isDone = isDone;
     }
+
+    boolean getIsDone() {
+        return this.isDone;
+    }
     
     /**
      * Mark a task as done.

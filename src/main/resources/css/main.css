@@ -47,3 +47,17 @@
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
+
+.progress-bar {
+    -fx-accent: #2e6255;  /* bar fill colour, change to your liking */
+}
+
+.progress-bar .track {
+    -fx-background-color: #d9ffe2;
+    -fx-background-radius: 0;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}

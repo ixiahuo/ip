@@ -9,7 +9,8 @@ import java.time.LocalDate;
  */
 class TaskList {
     private ArrayList<Task> taskList;
-    public int numTasks;
+    private int totalTasks;
+    private int doneTasks;
     private final static int MAX_NUMBER_OF_TASKS = 100;
 
     /**
@@ -17,7 +18,34 @@ class TaskList {
      */
     TaskList() {
         this.taskList = new ArrayList<Task>(MAX_NUMBER_OF_TASKS);
-        this.numTasks = 0;
+        this.totalTasks = 0;
+        this.doneTasks = 0;
+    }
+
+    public int getTotalTasks() {
+        return this.totalTasks;
+    }
+
+    /**
+     * Getter for number of tasks that have been marked as done.
+     * @return number of tasks that have been marked as done.
+     */
+    public int getDoneTasks() {
+        return this.doneTasks;
+    }
+
+    /**
+     * Increments the number of done tasks by one.
+     */
+    public void increaseDoneTasks() {
+        this.doneTasks += 1;
+    }
+
+    /**
+     * Decrements the number of done tasks by one.
+     */
+    public void decreaseDoneTasks() {
+        this.doneTasks -= 1;
     }
 
     /**
@@ -35,7 +63,7 @@ class TaskList {
      */
     void add(Task task) {
         this.taskList.add(task);
-        this.numTasks++;
+        this.totalTasks++;
     }
 
     /**
@@ -48,7 +76,7 @@ class TaskList {
         String taskName = Parser.getTodoDescription(userInput);
         Todo todo = new Todo(taskName);
         this.taskList.add(todo);
-        this.numTasks++;
+        this.totalTasks++;
         return todo;
     }
 
@@ -63,7 +91,7 @@ class TaskList {
         LocalDate deadline = Parser.getDeadline(userInput);
         Deadline task = new Deadline(desc, deadline);
         this.taskList.add(task);
-        this.numTasks++;
+        this.totalTasks++;
         return task;
     }
 
@@ -80,7 +108,7 @@ class TaskList {
         
         Event task = new Event(desc, start, end);
         this.taskList.add(task);
-        this.numTasks++;    
+        this.totalTasks++;    
         return task;
     }
 
@@ -90,7 +118,7 @@ class TaskList {
      */
     String list() {
         String s = "";
-        for (int i = 0; i < this.numTasks; i++) {
+        for (int i = 0; i < this.totalTasks; i++) {
            s += i + 1 + ". " + this.taskList.get(i) + "\n";
         }
         return s;
@@ -134,7 +162,7 @@ class TaskList {
      */
     Task delete(int taskNum) throws FroggeException {
         try {
-            this.numTasks--;
+            this.totalTasks--;
             return this.taskList.remove(taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new FroggeException("*ribbit* this task doesn't exist.");
@@ -144,7 +172,7 @@ class TaskList {
     TaskList find(String userInput) throws FroggeException {
         String keyword = Parser.getKeyword(userInput);
         TaskList foundTasks = new TaskList();
-        for (int i = 0; i < this.numTasks; i++) {
+        for (int i = 0; i < this.totalTasks; i++) {
             if (this.taskList.get(i).description.contains(keyword)) {
                 foundTasks.add(this.taskList.get(i));
             }
@@ -153,8 +181,8 @@ class TaskList {
     }
 
     void sort() {
-        for (int i = 0; i < this.numTasks - 1; i++) {
-            for (int j = 0; j < this.numTasks - i - 1; j++) {
+        for (int i = 0; i < this.totalTasks - 1; i++) {
+            for (int j = 0; j < this.totalTasks - i - 1; j++) {
                 Task left = this.taskList.get(j);
                 Task right = this.taskList.get(j+1);
                 if (left.compareTo(right) > 0) {
@@ -169,7 +197,7 @@ class TaskList {
     @Override
     public String toString() {
         String string = "";
-        for (int i = 0; i < this.numTasks; i++) {
+        for (int i = 0; i < this.totalTasks; i++) {
             string += (i + 1) + ". " + this.taskList.get(i) + "\n  ";
         }
         return string;
