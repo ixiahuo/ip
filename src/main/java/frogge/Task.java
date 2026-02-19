@@ -34,7 +34,6 @@ abstract class Task implements Comparable<Task> {
     
     /**
      * Mark a task as done.
-     * Sets isDone as true.
      */
     void mark() {
         this.isDone = true;
@@ -42,7 +41,6 @@ abstract class Task implements Comparable<Task> {
 
     /**
      * Mark a task as not done.
-     * Sets isDone as false.
      */
     void unmark() {
         this.isDone = false;
