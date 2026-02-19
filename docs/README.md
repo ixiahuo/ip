@@ -97,5 +97,10 @@ Format: `sort`
 
 Outcome: The list will be sorted and the save file will be updated accordingly.
 
+## Health bar
+Frogge has a health bar at the top! 
+This health bar tracks the overall status of your list. As more tasks are marked as done, it will increase.
+Completing more tasks will restore Frogge's health!
+
 ## Exiting the app
 Close the app using the following command: `bye`
