@@ -3,7 +3,7 @@
 Introducing Frogge, a helpful frog buddy for you to keep track of your tasks!
 Frogge is a task management app for desktops with a GUI and stores information locally.
 
-[./Ui.png]
+![Frogge App Screenshot](./Ui.png)
 
 ## Adding todos
 Add a simple task to the list. By default, this task is not done yet.
