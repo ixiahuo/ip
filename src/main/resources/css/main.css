@@ -1,0 +1,63 @@
+.root {
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #2e6255;
+    -fx-font: bold 16px "Arial";
+    -fx-text-fill: #d6ffe2;
+}
+
+.button:hover {
+    -fx-background-color:rgb(255, 242, 0);
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:rgb(255, 119, 0);
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #7ba6bf;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.progress-bar {
+    -fx-accent: #2e6255;  /* bar fill colour, change to your liking */
+}
+
+.progress-bar .track {
+    -fx-background-color: #d9ffe2;
+    -fx-background-radius: 0;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}

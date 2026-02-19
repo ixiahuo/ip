@@ -18,6 +18,17 @@ public class Frogge {
         }
     }
 
+    /**
+     * Gets Frogge's health, which represents the fraction of tasks that are done.
+     * @return the number of done tasks over the number of total tasks.
+     */
+    public double getHealth() {
+        if (this.taskList.getTotalTasks() == 0) {
+            return 1.0;
+        }
+        return (double) this.taskList.getDoneTasks() / this.taskList.getTotalTasks();
+    }
+
     public String executeTodo(String input) {
         try {
             Todo todo = this.taskList.addTodo(input);
@@ -50,7 +61,7 @@ public class Frogge {
     }
 
     public String executeList() {
-        return this.ui.display(this.taskList.numTasks + " items in your list:\n") 
+        return this.ui.display(this.taskList.getTotalTasks() + " items in your list:\n") 
                 + this.taskList.list();
     }
 
@@ -67,6 +78,8 @@ public class Frogge {
                     .getSaveString();
             this.storage.update(oldSaveString, newSaveString);
 
+            this.taskList.increaseDoneTasks();
+            
             return ui.display("marked", task);
         } catch (FroggeException e) {
             return ui.printError(e) + ui.display("format:", "mark [task number]");
@@ -86,6 +99,8 @@ public class Frogge {
                     .getSaveString();
             this.storage.update(oldSaveString, newSaveString);
 
+            this.taskList.decreaseDoneTasks();
+
             return ui.display("unmarked", task);
         } catch (FroggeException e) {
             return ui.printError(e) + ui.display("format:", "unmark [task number]");
@@ -95,6 +110,9 @@ public class Frogge {
     public String executeDelete(String input) {
         try {
             Task deleted = this.taskList.delete(Parser.getTaskNum(input));
+            if (deleted.getIsDone()) {
+                this.taskList.decreaseDoneTasks();
+            }
             this.storage.delete(deleted.getSaveString());
             return ui.display("deleted:", deleted);
         } catch (FroggeException e) {

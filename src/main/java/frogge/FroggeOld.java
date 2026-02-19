@@ -75,7 +75,7 @@ class FroggeOld {
                 }
                 break;
             case "list":
-                this.ui.display(this.tasklist.numTasks + " items in your list:");
+                this.ui.display(this.tasklist.getTotalTasks() + " items in your list:");
                 this.tasklist.list();
                 break;
             case "mark":

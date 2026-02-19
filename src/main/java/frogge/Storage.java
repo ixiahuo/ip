@@ -63,11 +63,12 @@ class Storage {
                     numTasks++;
                     if (savedFields[1].equals("1")) {
                         this.taskList.mark(numTasks);
+                        this.taskList.increaseDoneTasks();
                     }
                 }
             }
             fileScanner.close();
-            assert(this.taskList.numTasks == numTasks);
+            assert(this.taskList.getTotalTasks() == numTasks);
         } catch (IOException e) {
             throw new FroggeException("*ribbit* I can't load your save file right now >~<");
         }
@@ -165,7 +166,7 @@ class Storage {
             FileWriter fw = new FileWriter(SAVE_FILE.toString(), false);
             BufferedWriter bw = new BufferedWriter(fw);
             
-            for (int i = 0; i < this.taskList.numTasks; i++) {
+            for (int i = 0; i < this.taskList.getTotalTasks(); i++) {
                 bw.write(this.taskList.get(i + 1).getSaveString());
                 bw.newLine();
             }
