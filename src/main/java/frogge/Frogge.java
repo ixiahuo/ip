@@ -117,13 +117,12 @@ public class Frogge {
             .getSaveString();
 
             Task task = this.taskList.mark(Parser.getTaskNum(input));
+            this.taskList.increaseDoneTasks();
 
             String newSaveString = this.taskList
                     .get(Parser.getTaskNum(input))
                     .getSaveString();
             this.storage.update(oldSaveString, newSaveString);
-
-            this.taskList.increaseDoneTasks();
             
             return ui.display("marked", task);
         } catch (FroggeException e) {
@@ -149,13 +148,12 @@ public class Frogge {
             .getSaveString();
 
             Task task = this.taskList.unmark(Parser.getTaskNum(input));
-
+            this.taskList.decreaseDoneTasks();
+            
             String newSaveString = this.taskList
                     .get(Parser.getTaskNum(input))
                     .getSaveString();
             this.storage.update(oldSaveString, newSaveString);
-
-            this.taskList.decreaseDoneTasks();
 
             return ui.display("unmarked", task);
         } catch (FroggeException e) {
