@@ -25,7 +25,7 @@ class Parser {
      * @return String object representing the command to be executed in Frogge.
      */
     static String getCommand(String userInput) {
-        return userInput.split(" ")[0];
+        return removeWhiteSpace(userInput).split(" ")[0];
     }
 
     /**
