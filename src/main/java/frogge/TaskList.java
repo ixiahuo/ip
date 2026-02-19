@@ -169,6 +169,12 @@ class TaskList {
         }
     }
 
+    /**
+     * Finds all Tasks that contain the specified keyword.
+     * @param userInput User input to be parsed by Parser to extract the keyword.
+     * @return TaskList containing only the Tasks that contain the keyword in the Task description.
+     * @throws FroggeException If no keyword is specified.
+     */
     TaskList find(String userInput) throws FroggeException {
         String keyword = Parser.getKeyword(userInput);
         TaskList foundTasks = new TaskList();
@@ -180,6 +186,12 @@ class TaskList {
         return foundTasks;
     }
 
+    /**
+     * Sorts the TaskList in the following priority:
+     * 1. Unmarked > marked
+     * 2. Deadline > Event > Todo
+     * 3. Date of deadline (for Deadline) or start date (for Event).
+     */
     void sort() {
         for (int i = 0; i < this.totalTasks - 1; i++) {
             for (int j = 0; j < this.totalTasks - i - 1; j++) {

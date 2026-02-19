@@ -70,7 +70,7 @@ class Storage {
             fileScanner.close();
             assert(this.taskList.getTotalTasks() == numTasks);
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* I can't load your save file right now >~<");
+            throw new FroggeException("*ribbit* i can't load your save file right now >~<");
         }
     }
 
@@ -103,7 +103,7 @@ class Storage {
             saveFileWriter.write(task.getSaveString());
             saveFileWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* I can't write to your save file right now >~<");
+            throw new FroggeException("*ribbit* i can't write to your save file right now >~<");
         }
     }
 
@@ -130,7 +130,7 @@ class Storage {
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
         }
     }
 
@@ -157,7 +157,7 @@ class Storage {
             saveWriter.write(inputStr);
             saveWriter.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
         }
     }
 
@@ -173,7 +173,7 @@ class Storage {
             
             bw.close();
         } catch (IOException e) {
-            throw new FroggeException("*ribbit* There's a problem reading/writing to your save file.");
+            throw new FroggeException("*ribbit* there's a problem reading/writing to your save file.");
         }
     }
 }

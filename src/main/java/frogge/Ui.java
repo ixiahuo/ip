@@ -42,11 +42,4 @@ class Ui {
     String display(String message) {
         return "*ribbit* " + message;
     }
-
-    /**
-     * Prints a horizontal line.
-     */
-    void showLine() {
-        System.out.println("_________________________________________________________");
-    }
 }

@@ -37,6 +37,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Updates the health bar which represents the percentage of tasks done.
+     * @param progress The percentage of tasks done.
+     */
     public void updateHealthBar(double progress) {
         healthBar.setProgress(progress);
     }

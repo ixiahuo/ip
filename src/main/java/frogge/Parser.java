@@ -28,7 +28,7 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a keyword!"));
+                .orElseThrow(() -> new FroggeException("*ribbit* i need a keyword!"));
     }
 
     static int getTaskNum(String userInput) throws FroggeException {
@@ -52,7 +52,7 @@ class Parser {
         return Arrays.stream(userInput.split(" "))
                 .skip(1)
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+                .orElseThrow(() -> new FroggeException("*ribbit* i need a description!"));
     }
 
     /**
@@ -67,7 +67,7 @@ class Parser {
                 .skip(1)
                 .takeWhile(x -> !x.equals("/by"))
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+                .orElseThrow(() -> new FroggeException("*ribbit* i need a description!"));
     }
 
     /**
@@ -82,9 +82,9 @@ class Parser {
         try {
             return LocalDate.parse(userInput.split("/by ")[1]);
         } catch (IndexOutOfBoundsException e) {
-            throw new FroggeException("*ribbit* I need a deadline!");
+            throw new FroggeException("*ribbit* i need a deadline!");
         } catch (DateTimeException e) {
-            throw new FroggeException("*ribbit* Choose a valid date! >:(");
+            throw new FroggeException("*ribbit* choose a valid date! >:(");
         }
     }
 
@@ -100,7 +100,7 @@ class Parser {
             .skip(1)
             .takeWhile(x -> !x.equals("/from") && !x.equals("/to"))
             .reduce((x,y) -> x + " " + y)
-            .orElseThrow(() -> new FroggeException("*ribbit* I need a description!"));
+            .orElseThrow(() -> new FroggeException("*ribbit* i need a description!"));
     }
 
     /**
@@ -123,7 +123,7 @@ class Parser {
         assert(fromIndex >= 1 && fromIndex <= args.length);        
         
         if (fromIndex == args.length) {
-            throw new FroggeException("*ribbit* I need a start time!");
+            throw new FroggeException("*ribbit* i need a start time!");
         }
 
         try {
@@ -131,9 +131,9 @@ class Parser {
                     .skip(1)
                     .takeWhile(x -> !x.equals("/to"))
                     .reduce((x,y) -> x + " " + y)
-                    .orElseThrow(() -> new FroggeException("*ribbit* I need a start time!")));
+                    .orElseThrow(() -> new FroggeException("*ribbit* i need a start time!")));
         } catch (DateTimeException e) {
-            throw new FroggeException("*ribbit* Choose a valid date >:(");
+            throw new FroggeException("*ribbit* choose a valid date >:(");
         }
     }
 
@@ -157,7 +157,7 @@ class Parser {
         assert(toIndex >= 1 && toIndex <= args.length);
 
         if (toIndex == args.length) {
-            throw new FroggeException("*ribbit* I need an end time!");
+            throw new FroggeException("*ribbit* i need an end time!");
         }
         
         try {
@@ -165,9 +165,9 @@ class Parser {
                 .skip(1)
                 .takeWhile(x -> !x.equals("/from"))
                 .reduce((x,y) -> x + " " + y)
-                .orElseThrow(() -> new FroggeException("*ribbit* I need an end time!")));
+                .orElseThrow(() -> new FroggeException("*ribbit* i need an end time!")));
         } catch (DateTimeException e) {
-            throw new FroggeException("*ribbit* Choose a valid date >:(");
+            throw new FroggeException("*ribbit* choose a valid date >:(");
         }
     }
 

@@ -1,5 +1,8 @@
 package frogge;
 
+/** 
+ * Represents the chat bot entity. 
+*/
 public class Frogge {
 
     private Ui ui;
@@ -29,6 +32,12 @@ public class Frogge {
         return (double) this.taskList.getDoneTasks() / this.taskList.getTotalTasks();
     }
 
+    /**
+     * Executes the todo command.
+     * Creates a Todo object and adds it to the TaskList before displaying a validation message.
+     * @param input User input to be parsed by Parser to extract the Todo object information.
+     * @return Validation message as a String.
+     */
     public String executeTodo(String input) {
         try {
             Todo todo = this.taskList.addTodo(input);
@@ -39,6 +48,12 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the deadline command.
+     * Creates a Deadline object and adds it to the TaskList before displaying a validation message.
+     * @param input User input to be parsed by Parser to extract the Deadline object information.
+     * @return Validation message as a String.
+     */
     public String executeDeadline(String input) {
         try {
             Deadline deadline = this.taskList.addDeadline(input);
@@ -49,6 +64,12 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the event command.
+     * Creates an Event object and adds it to the TaskList before displaying a validation message.
+     * @param input User input to be parsed by Parser to extract the Event object information.
+     * @return Validation message as a String.
+     */
     public String executeEvent(String input) {
         try {
             Event event = this.taskList.addEvent(input);
@@ -60,11 +81,24 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the list command.
+     * Concatenates all tasks in the TaskList as Strings into one String.
+     * @return Validation message and the TaskList as a String.
+     */
     public String executeList() {
         return this.ui.display(this.taskList.getTotalTasks() + " items in your list:\n") 
                 + this.taskList.list();
     }
 
+    /**
+     * Executes the mark command.
+     * Marks the Task object specified by the number in the input and updates the 
+     * save file accordingly.
+     * @param input User input to be parsed by Parser to extract the number of the 
+     * task to be marked.
+     * @return Validation message as a String.
+     */
     public String executeMark(String input) {
         try {
             String oldSaveString = this.taskList
@@ -86,6 +120,14 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the unmark command.
+     * UNmarks the Task object specified by the number in the input and updates the 
+     * save file accordingly.
+     * @param input User input to be parsed by Parser to extract the number of the 
+     * task to be unmarked.
+     * @return Validation message as a String.
+     */
     public String executeUnmark(String input) {
         try {
             String oldSaveString = this.taskList
@@ -107,6 +149,14 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the delete command.
+     * Deletes the Task object specified by the number in the input and updates the 
+     * save file accordingly.
+     * @param input User input to be parsed by Parser to extract the number of the 
+     * task to be deleted.
+     * @return Validation message and tasks that contain the keyword as a String.
+     */
     public String executeDelete(String input) {
         try {
             Task deleted = this.taskList.delete(Parser.getTaskNum(input));
@@ -120,6 +170,12 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the find command.
+     * Returns all Tasks as Strings that contain the specified keyword.
+     * @param input User input to be parsed by Parser to extract the keyword to be searched for.
+     * @return Validation message as a String.
+     */
     public String executeFind(String input) {
         try {
             TaskList foundTasks = this.taskList.find(input);
@@ -129,6 +185,15 @@ public class Frogge {
         }
     }
 
+    /**
+     * Executes the sort command.
+     * Sorts the TaskList by the following priority:
+     * 1. Unmarked > marked
+     * 2. Deadline > Event > Todo
+     * 3. Date of deadline/start date
+     * Updates the save file accordingly.
+     * @return Validation message and the sorted TaskList as a String.
+     */
     public String executeSort() {
         try {
             this.taskList.sort();
@@ -148,7 +213,7 @@ public class Frogge {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message according to the command word.
      */
     public String getResponse(String input) {
         String command = Parser.getCommand(input);
