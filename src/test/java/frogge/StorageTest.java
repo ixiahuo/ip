@@ -43,7 +43,7 @@ class StorageTest {
 
         storage.init();
 
-        assertEquals(2, taskList.numTasks);
+        assertEquals(2, taskList.getTotalTasks());
         assertEquals(new Todo("read book"), taskList.get(1));
         assertEquals(new Deadline("submit report", true, LocalDate.parse("2024-01-01")), 
                 taskList.get(2));
@@ -93,7 +93,7 @@ class StorageTest {
     void init_emptyFile_doesNothing() throws Exception {
         storage.init();
 
-        assertEquals(0, taskList.numTasks);
+        assertEquals(0, taskList.getTotalTasks());
     }
 
     @Test
