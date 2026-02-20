@@ -42,6 +42,12 @@ class Parser {
                 .orElseThrow(() -> new FroggeException("*ribbit* i need a keyword!"));
     }
 
+    /**
+     * Gets the number of the task to be operated on from a user command.
+     * @param userInput String to be parsed.
+     * @return Number of task as an int.
+     * @throws FroggeException if the task number cannot be extracted or is out of bounds.
+     */
     static int getTaskNum(String userInput) throws FroggeException {
         try {
             return Integer.parseInt(removeWhiteSpace(userInput).split(" ")[1]);

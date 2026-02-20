@@ -29,6 +29,11 @@ class Todo extends Task {
                 + "\n";
     }
 
+    /**
+     * Compares Todo objects to another Task.
+     * If both Tasks have the same isDone value, Todo objects are less than Deadline objects
+     * and Event objects.
+     */
     @Override
     public int compareTo(Task other) {
         int doneCompare = super.compareTo(other);

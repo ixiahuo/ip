@@ -52,6 +52,10 @@ abstract class Task implements Comparable<Task> {
      */
     abstract String getSaveString();
 
+    /**
+     * Compares Tasks based on isDone property.
+     * A Task with isDone = false is less than a Task with isDone = true.
+     */
     @Override
     public int compareTo(Task other) {
         if (this.isDone == false && other.isDone == true) {

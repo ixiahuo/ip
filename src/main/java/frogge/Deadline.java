@@ -38,6 +38,12 @@ class Deadline extends Task {
                 + "\n";
     }
 
+    /**
+     * Compares Deadline objects to another Task.
+     * If both Tasks have the same isDone value, Deadline objects are greater than both Event
+     * and Todo objects.
+     * If both Tasks are Deadline objects, compareTo will compare their deadlines.
+     */
     @Override
     public int compareTo(Task other) {
         int doneCompare = super.compareTo(other);

@@ -51,10 +51,22 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Gets a dialog box that is oriented and formatted for the user.
+     * @param s Text that should be contained in the DialogBox.
+     * @param i Image that is used as the user's profile picture.
+     * @return A DialogBox containing the above information.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
+    /**
+     * Gets a dialog box that is oriented and formatted for the chat bot.
+     * @param s Text that should be contained in the DialogBox.
+     * @param i Image that is used as the chatbot's profile picture.
+     * @return A DialogBox containing the above information.
+     */
     public static DialogBox getFroggeDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();

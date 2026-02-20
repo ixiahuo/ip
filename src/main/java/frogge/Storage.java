@@ -169,6 +169,10 @@ class Storage {
         }
     }
 
+    /**
+     * Writes the entire current TaskList to the save file.
+     * @throws IOException if the save file is missing or corrupted.
+     */
     public void store() throws IOException {
         try {
             SAVE_DIRECTORY.mkdir();

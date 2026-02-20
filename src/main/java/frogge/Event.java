@@ -44,6 +44,12 @@ class Event extends Task {
                 + "\n";
     }
 
+    /**
+     * Compares Event objects to another Task.
+     * If both Tasks have the same isDone value, Event objects are less than Deadline objects
+     * but greater than Todo objects.
+     * If both Tasks are Event objects, compareTo will compare their start dates.
+     */
     @Override
     public int compareTo(Task other) {
         int doneCompare = super.compareTo(other);
