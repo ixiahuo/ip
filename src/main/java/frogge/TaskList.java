@@ -54,7 +54,7 @@ class TaskList {
      * @return Task at the specified position.
      */
     Task get(int taskNum) throws FroggeException {
-        if (taskNum > this.totalTasks) {
+        if (taskNum > this.totalTasks || taskNum <= 0) {
             throw new FroggeException("*ribbit* this task doesn't exist!");
         }
         return this.taskList.get(taskNum - 1);
@@ -142,7 +142,7 @@ class TaskList {
             this.taskList.get(taskNum - 1).mark();
             return this.taskList.get(taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new FroggeException("*ribbit* this task doesn't exist.");
+            throw new FroggeException("*ribbit* this task doesn't exist!");
         }
     }
 
@@ -157,7 +157,7 @@ class TaskList {
             this.taskList.get(taskNum - 1).unmark();
             return this.taskList.get(taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new FroggeException("*ribbit* this task doesn't exist.");
+            throw new FroggeException("*ribbit* this task doesn't exist!");
         }
     }
 

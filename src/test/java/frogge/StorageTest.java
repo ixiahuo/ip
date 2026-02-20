@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.beans.Transient;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,6 +48,16 @@ class StorageTest {
         assertEquals(new Todo("read book"), taskList.get(1));
         assertEquals(new Deadline("submit report", true, LocalDate.parse("2024-01-01")), 
                 taskList.get(2));
+    }
+
+    @Test
+    void init_corruptedFile_throwsException() throws Exception {
+        FileWriter writer = new FileWriter(saveFile);
+        writer.write("blahblah");
+        writer.close();
+
+        FroggeException e = assertThrows(FroggeException.class, () -> storage.init());
+        assertEquals("*ribbit* something's wrong with your save file!", e.getMessage());
     }
 
     @Test

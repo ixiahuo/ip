@@ -17,7 +17,7 @@ class TaskListTest {
     }
 
     @Test
-    void add_addsTaskAndIncrementsCount() {
+    void add_addsTaskAndIncrementsCount() throws FroggeException {
         Task task = new Todo("read book");
 
         taskList.add(task);
@@ -27,13 +27,31 @@ class TaskListTest {
     }
 
     @Test
-    void get_returnsCorrectTask() {
+    void get_returnsCorrectTask() throws FroggeException {
         Task task = new Todo("do homework");
         taskList.add(task);
 
         Task result = taskList.get(1);
 
         assertEquals(new Todo("do homework"), result);
+    }
+
+    @Test
+    void get_outOfBounds_throwsException() {
+        Task task = new Todo("do homework");
+        taskList.add(task);
+
+        FroggeException e = assertThrows(FroggeException.class, () -> taskList.get(99));
+        assertEquals("*ribbit* this task doesn't exist!", e.getMessage());
+    }
+
+    @Test
+    void get_negativeIndex_throwsException() {
+        Task task = new Todo("do homework");
+        taskList.add(task);
+
+        FroggeException e = assertThrows(FroggeException.class, () -> taskList.get(-1));
+        assertEquals("*ribbit* this task doesn't exist!", e.getMessage());
     }
 
     @Test
@@ -71,6 +89,24 @@ class TaskListTest {
         taskList.add(task);
         Task marked = taskList.mark(1);
         assertEquals(new Todo("exercise", true), marked);
+    }
+
+    @Test
+    void mark_negativeIndex_throwsException() {
+        Task task = new Todo("do homework");
+        taskList.add(task);
+
+        FroggeException e = assertThrows(FroggeException.class, () -> taskList.mark(-1));
+        assertEquals("*ribbit* this task doesn't exist!", e.getMessage());
+    }
+
+    @Test
+    void mark_outOfBounds_throwsException() {
+        Task task = new Todo("do homework");
+        taskList.add(task);
+
+        FroggeException e = assertThrows(FroggeException.class, () -> taskList.mark(99));
+        assertEquals("*ribbit* this task doesn't exist!", e.getMessage());
     }
 
     @Test
@@ -114,6 +150,6 @@ class TaskListTest {
                 () -> taskList.mark(1)
         );
 
-        assertEquals("*ribbit* this task doesn't exist.", exception.getMessage());
+        assertEquals("*ribbit* this task doesn't exist!", exception.getMessage());
     }
 }
