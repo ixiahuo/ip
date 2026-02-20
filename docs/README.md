@@ -68,6 +68,8 @@ Outcome: The task with that number in the list is marked as not done.
 ## Finding tasks
 Find all tasks containing a keyword and displays them.
 
+**NOTE:** `find` is case-sensitive.
+
 Format: `find KEYWORD`
 
 Example:
